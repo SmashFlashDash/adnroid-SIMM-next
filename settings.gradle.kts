@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "simm-next"
 include(":app")
 include(":database")
+include(":features:simm-main")
