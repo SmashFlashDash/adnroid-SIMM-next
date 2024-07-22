@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-//    alias(libs.plugins.kotlinAndroidKsp)
-    alias(libs.plugins.kotlinAndroidKapt)
+    alias(libs.plugins.ksp)
+//    alias(libs.plugins.kapt)
     alias(libs.plugins.hiltAndroid)
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" // this version matches your Kotlin version
 }
 
 android {
@@ -69,7 +70,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     // hilt
-//    ksp(libs.hilt.compiler)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.hilt.android)
 }
