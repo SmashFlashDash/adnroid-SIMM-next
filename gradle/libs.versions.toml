@@ -11,6 +11,9 @@ composeBom = "2024.06.00"
 kspVersion = "2.0.0-1.0.23"    # compability with kotlin version
 hiltVersion = "2.51"
 kotlinx-coroutines = "1.9.0-RC"
+roomVersion = "2.6.1"
+appcompat = "1.6.1"
+material = "1.10.0"
 
 
 [libraries]
@@ -33,10 +36,18 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+# hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android" , version.ref = "hiltVersion"}
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler" , version.ref = "hiltVersion"}
+# room
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
+room = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
+# coroutines
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+
+#androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+#material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 
 [plugins]
@@ -45,4 +56,5 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 # mb to remove
 #kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
-hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }    # using kapt
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
+android-library = { id = "com.android.library", version.ref = "agp" }    # using kapt
