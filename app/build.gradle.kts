@@ -63,10 +63,22 @@ dependencies {
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
     // hilt
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.android)
+    // lifecycle
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.compose)
+    // coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    // implementation(libs.kotlinx.coroutines.core)
 
+    // modules
+    implementation(project(":core:database"))
+    implementation(project(":core:bthapi"))
+
+    // test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

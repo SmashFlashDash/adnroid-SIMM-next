@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.frontend
+package ru.progpuppers.bthapi
 
 import org.junit.Test
 
