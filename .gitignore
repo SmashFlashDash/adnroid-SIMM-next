@@ -2,6 +2,9 @@
 .gradle/
 build/
 
+# Documentation tmp
+~*.docx
+
 # Local configuration file (sdk path, etc)
 local.properties
 

@@ -1,4 +1,4 @@
 package ru.progpuppers.bthapi
 
-class BthApi {
+class SimmBthService {
 }
