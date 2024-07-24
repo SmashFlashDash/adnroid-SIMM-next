@@ -1,4 +1,12 @@
 package ru.progpuppers.bthapi.dto
 
-class Response {
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Response(
+    val cmd: Cmd? = null,
+    val error: Int? = null,
+    val desc: String? = null,
+    val res: Boolean? = null
+) {
 }

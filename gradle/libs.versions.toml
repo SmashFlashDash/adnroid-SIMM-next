@@ -14,6 +14,7 @@ espressoCore = "3.6.1"
 androidx-lifecycle = "2.8.3"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
+kotlinxSerializationJson = "1.7.1"
 kspVersion = "2.0.0-1.0.23"    # compability with kotlin version
 hiltVersion = "2.51"
 kotlinx-coroutines = "1.9.0-RC"
@@ -52,6 +53,8 @@ androidx-lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-r
 # coroutines
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+# serialization
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 # wtf
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
@@ -66,3 +69,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 android-library = { id = "com.android.library", version.ref = "agp" }    # using kapt
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
