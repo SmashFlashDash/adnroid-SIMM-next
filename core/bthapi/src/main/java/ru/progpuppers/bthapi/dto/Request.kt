@@ -1,6 +1,8 @@
 package ru.progpuppers.bthapi.dto
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import ru.progpuppers.bthapi.utils.Int3BitSerializer
 
 // TODO:
 //  - по дефолту в java BigEndian то что над
@@ -31,20 +33,20 @@ data class Request(
 
 @Serializable
 data class Params(
-    val id: String,
-    val sims: String,   // TODO: число
-    val mode: String,   // TODO: число
+    val id: String? = null,
+    @SerialName("sims") @Serializable(with = Int3BitSerializer::class) val sims: Int? = null,   // TODO: сериализатор
+    val mode: Int? = null,   // TODO: сериализатор
 
-    val cycle:  Cycle,   // TODO: лонги
-    val gsm:  Network,   // TODO: лонги
-    val egsm:  Network,
-    val dcs:  Network,
-    val `3g`:  String,  // TODO: name
+    val cycle: Cycle? = null,   // TODO: лонги
+    val gsm: Network? = null,   // TODO: лонги
+    val egsm: Network? = null,
+    val dcs: Network? = null,
+    val `3g`: String? = null,  // TODO: name
 
-    val scanMode:  Int,
-    val ta:  Boolean,
+    val scanMode: Int? = null,
+    val ta: Boolean? = null,
 
-    val mode2: Int // TODO: режим CSWM конфликтует c этим полем "mode" по имени
+    val mode2: Int? = null // TODO: режим CSWM конфликтует c этим полем "mode" по имени
 ) {
 
 }
@@ -58,7 +60,7 @@ data class Cycle(
 }
 
 @Serializable
-data class Network (
+data class Network(
     val st: Int,
     val end: Int
 ) {
