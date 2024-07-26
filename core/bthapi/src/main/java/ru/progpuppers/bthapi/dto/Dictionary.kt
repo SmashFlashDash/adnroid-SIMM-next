@@ -25,7 +25,7 @@ enum class Cmd {
 }
 
 // SIMM-searcher responses to invalid commands
-enum class Errors (val code: Int, val desc: String) {
+enum class Errors(val code: Int, val desc: String) {
     WrongType(1, "Wrong type"),
     WrongCommand(1, "Wrong command"),
     NotImplemented(3, "Not implemented"),

@@ -8,5 +8,4 @@ data class Response(
     val error: Int? = null,
     val desc: String? = null,
     val res: Boolean? = null
-) {
-}
+)
