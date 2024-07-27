@@ -19,6 +19,7 @@ kspVersion = "2.0.0-1.0.23"    # compability with kotlin version
 hiltVersion = "2.51"
 kotlinx-coroutines = "1.9.0-RC"
 roomVersion = "2.6.1"
+coreSplashscreenVersion = "1.0.1"
 appcompatVersion = "1.6.1"
 materialVersion = "1.10.0"
 
@@ -38,6 +39,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreenVersion" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 # hilt

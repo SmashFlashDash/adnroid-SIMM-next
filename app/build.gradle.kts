@@ -73,6 +73,8 @@ dependencies {
     // coroutines
     implementation(libs.kotlinx.coroutines.android)
     // implementation(libs.kotlinx.coroutines.core)
+    //splashscreen
+    implementation(libs.androidx.core.splashscreen)
 
     // modules
     implementation(project(":core:database"))

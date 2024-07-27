@@ -4,6 +4,8 @@ build/
 
 # Documentation tmp
 ~*.docx
+/.docs/*.svg
+/.docs/*.png
 
 # Local configuration file (sdk path, etc)
 local.properties

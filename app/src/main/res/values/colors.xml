@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- custom -->
+    <color name="tuned_black">#FF1C1E21</color>
+    <color name="tuned_white">#FFC0BDBD</color>
+    <color name="tuned_blue">#FF4C3FFA</color>
 </resources>
