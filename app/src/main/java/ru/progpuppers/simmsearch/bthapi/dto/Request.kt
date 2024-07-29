@@ -1,4 +1,4 @@
-package ru.progpuppers.bthapi.dto
+package ru.progpuppers.simmsearch.bthapi.dto
 
 import kotlinx.serialization.Serializable
 

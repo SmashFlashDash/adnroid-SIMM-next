@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
@@ -75,10 +76,16 @@ dependencies {
     // implementation(libs.kotlinx.coroutines.core)
     //splashscreen
     implementation(libs.androidx.core.splashscreen)
+    // room
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    // serialization
+    implementation(libs.kotlinx.serialization.json)
 
+    // todo: multi module project
     // modules
-    implementation(project(":core:database"))
-    implementation(project(":core:bthapi"))
+    // implementation(project(":core:database"))
+    // implementation(project(":core:bthapi"))
 
     // test
     testImplementation(libs.junit)

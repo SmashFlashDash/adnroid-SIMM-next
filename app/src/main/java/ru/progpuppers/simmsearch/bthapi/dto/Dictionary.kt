@@ -1,4 +1,4 @@
-package ru.progpuppers.bthapi.dto
+package ru.progpuppers.simmsearch.bthapi.dto
 
 // todo: сделать:
 //  - общий класс для респонс ответ

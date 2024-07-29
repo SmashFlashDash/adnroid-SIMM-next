@@ -1,8 +1,8 @@
-package ru.progpuppers.bthapi.dto
+package ru.progpuppers.simmsearch.bthapi.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import ru.progpuppers.bthapi.utils.Int3BitSerializer
+import ru.progpuppers.simmsearch.bthapi.utils.Int3BitSerializer
 
 @Serializable
 data class ParamsCSCB(

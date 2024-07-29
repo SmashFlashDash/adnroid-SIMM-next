@@ -21,5 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "simm-next"
 include(":app")
-include(":core:database")
-include(":core:bthapi")
+//include(":core:database")
+//include(":core:bthapi")
