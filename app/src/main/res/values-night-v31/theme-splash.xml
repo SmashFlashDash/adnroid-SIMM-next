@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="App.Starting.Theme" parent="Theme.Simmnext">
+        <item name="windowSplashScreenBackground">@color/tuned_black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_png</item>
+        <item name="postSplashScreenTheme">@style/Theme.Simmnext</item>
+    </style>
+</resources>

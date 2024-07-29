@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "ru.progpuppers.simmsearch.app"
-    compileSdk = libs.versions.androidSdk.compile.get().toInt()
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "ru.progpuppers.simmsearch.app"
-        minSdk = libs.versions.androidSdk.min.get().toInt()
-        targetSdk = libs.versions.androidSdk.target.get().toInt()
+        minSdk = 26
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

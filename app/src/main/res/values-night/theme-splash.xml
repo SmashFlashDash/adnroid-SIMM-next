@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="App.Starting.Theme" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/tuned_black</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_blue</item>
-        <item name="postSplashScreenTheme">@style/Theme.Simmnext</item>
+    <style name="App.Starting.Theme" parent="Theme.Simmnext">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
     </style>
 </resources>
