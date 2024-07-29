@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.database.dao
+package ru.progpuppers.simmsearch.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

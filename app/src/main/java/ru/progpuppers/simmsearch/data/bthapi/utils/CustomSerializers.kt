@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.bthapi.utils
+package ru.progpuppers.simmsearch.data.bthapi.utils
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.app
+package ru.progpuppers.simmsearch.presentation.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import ru.progpuppers.simmsearch.app.ui.theme.SimmnextTheme
+import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.frontend
+package ru.progpuppers.simmsearch.presentation.main
 
 import androidx.lifecycle.ViewModel
 

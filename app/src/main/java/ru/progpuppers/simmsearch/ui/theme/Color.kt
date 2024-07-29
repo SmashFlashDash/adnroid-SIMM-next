@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.app.ui.theme
+package ru.progpuppers.simmsearch.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

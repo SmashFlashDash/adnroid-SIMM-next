@@ -4,9 +4,9 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.progpuppers.simmsearch.bthapi.dto.Cmd
-import ru.progpuppers.simmsearch.bthapi.dto.ParamsCSCB
-import ru.progpuppers.simmsearch.bthapi.dto.Request
+import ru.progpuppers.simmsearch.data.bthapi.dto.Cmd
+import ru.progpuppers.simmsearch.data.bthapi.dto.ParamsCSCB
+import ru.progpuppers.simmsearch.data.bthapi.dto.Request
 
 
 class CustomSerializersTest {
