@@ -2,7 +2,7 @@
 <resources>
     <style name="App.Starting.Theme" parent="Theme.Simmnext">
         <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_png</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
         <item name="postSplashScreenTheme">@style/Theme.Simmnext</item>
     </style>
 </resources>
