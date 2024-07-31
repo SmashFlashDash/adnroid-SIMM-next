@@ -1,13 +1,8 @@
 package ru.progpuppers.simmsearch.data.bthapi.dto
 
-// todo: сделать:
-//  - общий класс для респонс ответ
-//  - кастомный серилазиатор в json, доавлять \r\n после json
-//    не сериализовать null поля
-//  - кастомный десериализатор json, откидывать с конца \r\n\r\n
-//  - логировать все респонсы и реквесты raw в urf8
-
-// Commands to manage SIMM-searcher activity
+/**
+ Commands to manage SIMM-searcher activity
+ */
 enum class Cmd {
     RSTA,   // get is device ready to get commands
     RCSS,   // get status current search
@@ -24,7 +19,9 @@ enum class Cmd {
     CSSP,   // set device parameters
 }
 
-// SIMM-searcher responses to invalid commands
+/**
+ * SIMM-searcher responses to invalid commands
+ */
 enum class Errors(val code: Int, val desc: String) {
     WrongType(1, "Wrong type"),
     WrongCommand(1, "Wrong command"),
