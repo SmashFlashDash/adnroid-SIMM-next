@@ -24,7 +24,7 @@ enum class Cmd {
  */
 enum class Errors(val code: Int, val desc: String) {
     WrongType(1, "Wrong type"),
-    WrongCommand(1, "Wrong command"),
+    WrongCommand(2, "Wrong command"),
     NotImplemented(3, "Not implemented"),
     CriticalDeviceState(4, "Critical device state")
 }
