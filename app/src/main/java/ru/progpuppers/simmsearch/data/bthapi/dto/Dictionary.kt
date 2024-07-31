@@ -1,7 +1,7 @@
 package ru.progpuppers.simmsearch.data.bthapi.dto
 
 /**
- Commands to manage SIMM-searcher activity
+Commands to manage SIMM-searcher activity
  */
 enum class Cmd {
     RSTA,   // get is device ready to get commands
@@ -27,5 +27,14 @@ enum class Errors(val code: Int, val desc: String) {
     WrongCommand(2, "Wrong command"),
     NotImplemented(3, "Not implemented"),
     CriticalDeviceState(4, "Critical device state")
+}
+
+interface СsspTemplate {
+    val log: Boolean?
+    val powerOff: Int?
+    val sims: List<Sim>?
+    val standalone: Standalone?
+    val CSOP: CSOP?
+    val cycle: Cycle?
 }
 

@@ -27,6 +27,7 @@ object AppModule {
         return Json {
             encodeDefaults = false
             explicitNulls = false
+            classDiscriminator = "cmd"
         }
     }
 }
