@@ -81,6 +81,9 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     // serialization
     implementation(libs.kotlinx.serialization.json)
+    // navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // todo: multi module project
     // modules
