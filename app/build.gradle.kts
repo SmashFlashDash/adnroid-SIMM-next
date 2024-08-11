@@ -84,6 +84,8 @@ dependencies {
     // navigation
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+    // appcompat
+    implementation(libs.androidx.appcompat)
 
     // todo: multi module project
     // modules
