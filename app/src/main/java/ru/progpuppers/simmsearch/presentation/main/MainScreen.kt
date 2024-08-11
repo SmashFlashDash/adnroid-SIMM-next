@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.presentation.mainActivity
+package ru.progpuppers.simmsearch.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

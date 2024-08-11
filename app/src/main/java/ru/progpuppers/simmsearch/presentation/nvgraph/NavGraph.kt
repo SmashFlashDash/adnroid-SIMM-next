@@ -9,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import ru.progpuppers.simmsearch.presentation.mainActivity.Greeting
+import ru.progpuppers.simmsearch.presentation.main.Greeting
 
 @Composable
 fun NavGraph(
