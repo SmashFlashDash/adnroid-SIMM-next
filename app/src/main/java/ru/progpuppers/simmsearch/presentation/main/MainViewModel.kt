@@ -2,8 +2,14 @@ package ru.progpuppers.simmsearch.presentation.main
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.progpuppers.simmsearch.data.bthapi.BthApi
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel  @Inject constructor(): ViewModel(){
+class MainViewModel @Inject constructor(
+    private val bthService: BthApi
+) : ViewModel() {
+
+
+
 }

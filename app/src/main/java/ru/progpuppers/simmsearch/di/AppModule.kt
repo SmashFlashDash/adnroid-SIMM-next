@@ -5,17 +5,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import ru.progpuppers.simmsearch.data.bthapi.BthService
+import ru.progpuppers.simmsearch.data.bthapi.BthApi
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    @Singleton
-    @Provides
-    @JsonRequestFactory
-    fun bthService(): BthService = BthService()
 
     @Singleton
     @Provides
@@ -36,4 +31,11 @@ object AppModule {
             classDiscriminator = "cmd"
         }
     }
+
+    @Singleton
+    @Provides
+    fun bthApi(
+        @JsonRequestFactory jsonRequestFactory:Json,
+        @JsonRequestFactory jsonResponseFactory:Json
+    ): BthApi = BthApi(jsonRequestFactory, jsonResponseFactory)
 }
