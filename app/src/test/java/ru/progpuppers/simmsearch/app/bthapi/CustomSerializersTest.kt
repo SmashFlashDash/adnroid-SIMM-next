@@ -13,8 +13,8 @@ import ru.progpuppers.simmsearch.di.AppModule
 
 
 class CustomSerializersTest {
-    val jsonRequestFactory = AppModule.jsonRequestFactory()
-    val jsonResponseFactory = AppModule.jsonResponseFactory()
+    val jsonRequestFactory = AppModule.jsonRequestFactory
+    val jsonResponseFactory = AppModule.jsonResponseFactory
 
     @Test
     fun int3BitSerializer_serialize_isValid() {

@@ -15,17 +15,16 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    val jsonRequestFactory = Json { encodeDefaults = false }
+    val jsonResponseFactory = Json {
+        encodeDefaults = false
+        explicitNulls = false
+        classDiscriminator = "cmd"
+    }
 
     @Singleton
     @Provides
-    fun bthApi(): BthApi = BthApi(
-        Json { encodeDefaults = false },
-        Json {
-            encodeDefaults = false
-            explicitNulls = false
-            classDiscriminator = "cmd"
-        }
-    )
+    fun bthApi(): BthApi = BthApi(jsonRequestFactory, jsonResponseFactory)
 
     @Singleton
     @Provides
