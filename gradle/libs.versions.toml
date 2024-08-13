@@ -24,6 +24,7 @@ appcompat = "1.7.0"
 materialVersion = "1.10.0"
 navigationCompose = "2.7.7"
 hiltNavigationComposeVersion = "1.2.0"
+pagingCommonAndroid = "3.3.2"
 
 
 [libraries]
@@ -66,6 +67,7 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 # wtf
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
 
 
 [plugins]

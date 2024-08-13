@@ -1,4 +1,9 @@
 package ru.progpuppers.simmsearch.domain.model
 
-class SimmDevice {
-}
+import java.util.Optional
+
+data class SimmDevice (
+    val name: String,
+    val macAddress: Optional<String>,
+    val isEnable: Boolean,
+)

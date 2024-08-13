@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
+import java.util.Optional
 
 @Composable
 fun SimmDeviceCard(
@@ -32,14 +33,9 @@ fun SimmDeviceCardPreview() {
     SimmnextTheme(dynamicColor = false) {
         SimmDeviceCard(
             device = SimmDevice(
-                // author = "",
-                // content = "",
-                // description = "",
-                // publishedAt = "2 hours",
-                // source = Source(id = "", name = "BBC"),
-                // title = "Her train broke down. Her phone died. And then she met her Saver in a",
-                // url = "",
-                // urlToImage = "https://img.freepik.com/free-photo/beautiful-kitten-with-colorful-clouds_23-2150752964.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1723334400&semt=ais_hybrid"
+                name = "pupper",
+                macAddress = Optional.of("whatttidy"),
+                isEnable = false,
             )
         )
     }
