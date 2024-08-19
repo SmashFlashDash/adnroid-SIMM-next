@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.presentation.main
+package ru.progpuppers.simmsearch.presentation.deviceselect
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +9,7 @@ import ru.progpuppers.simmsearch.domain.usecases.DeviceUseCases
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class DeviceSelectViewModel @Inject constructor(
     private val bthService: BthApi,
     private val deviceUseCases: DeviceUseCases
 ) : ViewModel() {

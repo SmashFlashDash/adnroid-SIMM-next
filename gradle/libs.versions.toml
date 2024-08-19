@@ -12,6 +12,7 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 androidx-lifecycle = "2.8.3"
+androidx-compose = "1.6.8"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
 kotlinxSerializationJson = "1.7.1"
@@ -67,7 +68,9 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 # wtf
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidx-compose" }
 androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
+
 
 
 [plugins]

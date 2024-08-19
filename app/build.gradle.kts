@@ -51,6 +51,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -87,6 +91,10 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     // appcompat
     implementation(libs.androidx.appcompat)
+    // ui-theme
+    implementation("androidx.activity:activity-compose:1.9.1")
+
+    implementation (libs.androidx.compose.material.iconsExtended)
 
     // todo: multi module project
     // modules
