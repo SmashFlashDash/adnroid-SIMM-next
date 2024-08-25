@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.presentation.deviceselect.components
+package ru.progpuppers.simmsearch.presentation.deviceSelect.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -14,9 +14,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
-import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopUpVisibility
+import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopUpState
 import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopup
-import ru.progpuppers.simmsearch.presentation.common.isVisible
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,11 +23,11 @@ import ru.progpuppers.simmsearch.presentation.common.isVisible
 fun TopBar(onMenuIconClick: () -> Unit) {
     var notAvailablePopupVisibility by rememberSaveable {
         mutableStateOf(
-            NotAvailablePopUpVisibility.GONE
+            NotAvailablePopUpState.GONE
         )
     }
     if (notAvailablePopupVisibility.isVisible()) {
-        NotAvailablePopup { notAvailablePopupVisibility = NotAvailablePopUpVisibility.GONE }
+        NotAvailablePopup { notAvailablePopupVisibility = NotAvailablePopUpState.GONE }
     }
 
     TopAppBar(
@@ -46,7 +45,7 @@ fun TopBar(onMenuIconClick: () -> Unit) {
         },
         actions = {
             InputIcon(
-                onClick = { notAvailablePopupVisibility = NotAvailablePopUpVisibility.VISIBLE },
+                onClick = { notAvailablePopupVisibility = NotAvailablePopUpState.VISIBLE },
                 icon = Icons.Filled.Add,
                 description = "add device",
                 tint = Color.Black

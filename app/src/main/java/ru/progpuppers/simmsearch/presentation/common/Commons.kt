@@ -1,5 +1,6 @@
 package ru.progpuppers.simmsearch.presentation.common
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -7,9 +8,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import ru.progpuppers.simmsearch.app.R
 
 
@@ -17,14 +20,14 @@ import ru.progpuppers.simmsearch.app.R
 fun InputIcon(
     onClick: () -> Unit,
     icon: ImageVector,
-    description: String,
+    modifier: Modifier = Modifier,
+    description: String = "No description",
     tint: Color = MaterialTheme.colorScheme.secondary
 ) {
     IconButton(onClick = onClick) {
-        Icon(icon, tint = tint, contentDescription = description)
+        Icon(icon, tint = tint, modifier = modifier, contentDescription = description)
     }
 }
-
 
 @Composable
 fun NotAvailablePopup(onDismiss: () -> Unit) {
@@ -44,9 +47,13 @@ fun NotAvailablePopup(onDismiss: () -> Unit) {
     )
 }
 
-enum class NotAvailablePopUpVisibility {
-    VISIBLE, GONE
+enum class NotAvailablePopUpState {
+    VISIBLE, GONE;
+    fun isVisible(): Boolean = this == VISIBLE
 }
 
-fun NotAvailablePopUpVisibility.isVisible(): Boolean =
-    this == NotAvailablePopUpVisibility.VISIBLE
+// fun NotAvailablePopUpVisibility.isVisible(): Boolean =
+//     this == NotAvailablePopUpVisibility.VISIBLE
+
+fun Modifier.padding(start: Dp, other: Dp) = this then Modifier.padding(start, other, other, other)
+

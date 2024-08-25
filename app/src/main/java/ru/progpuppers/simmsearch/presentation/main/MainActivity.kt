@@ -6,12 +6,9 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -23,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.progpuppers.simmsearch.presentation.DataManageUi
 import ru.progpuppers.simmsearch.presentation.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.SettingsUi
-import ru.progpuppers.simmsearch.presentation.deviceselect.DeviceSelectUi
+import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectUi
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
 
 @AndroidEntryPoint
