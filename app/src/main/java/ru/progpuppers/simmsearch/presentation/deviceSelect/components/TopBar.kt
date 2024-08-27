@@ -13,6 +13,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopUpState
 import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopup
@@ -20,7 +21,10 @@ import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopup
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(onMenuIconClick: () -> Unit) {
+fun TopBar(
+    onAddIconClick: () -> Unit,
+    onMenuIconClick: () -> Unit
+) {
     var notAvailablePopupVisibility by rememberSaveable {
         mutableStateOf(
             NotAvailablePopUpState.GONE
@@ -45,7 +49,8 @@ fun TopBar(onMenuIconClick: () -> Unit) {
         },
         actions = {
             InputIcon(
-                onClick = { notAvailablePopupVisibility = NotAvailablePopUpState.VISIBLE },
+                onClick = { onAddIconClick() },
+                // onClick = { notAvailablePopupVisibility = NotAvailablePopUpState.VISIBLE },
                 icon = Icons.Filled.Add,
                 description = "add device",
                 tint = Color.Black
@@ -59,7 +64,5 @@ fun TopBar(onMenuIconClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun TopBarPreview() {
-    TopBar {
-        println("click")
-    }
+    TopBar (onAddIconClick = { }) { { } }
 }

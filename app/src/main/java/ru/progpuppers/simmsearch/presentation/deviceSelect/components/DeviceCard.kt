@@ -42,7 +42,7 @@ import java.util.Optional
 fun DeviceCard(
     modifier: Modifier = Modifier,
     device: SimmDevice,
-    onEditClick: ((SimmDevice) -> Unit) = { println("click") }
+    onEditClick: ((SimmDevice) -> Unit)
 ) {
     Card(
         modifier = Modifier.fillMaxWidth().background(Color.Transparent),

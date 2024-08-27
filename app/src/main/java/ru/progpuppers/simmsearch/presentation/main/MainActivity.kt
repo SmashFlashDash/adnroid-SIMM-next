@@ -21,9 +21,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.DataManageUi
 import ru.progpuppers.simmsearch.presentation.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.SettingsUi
+import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceAddUi
 import ru.progpuppers.simmsearch.presentation.deviceManage.DeviceManageUi
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectUi
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectViewModel
@@ -49,7 +51,7 @@ class MainActivity : ComponentActivity() {
             SimmnextTheme {
                 SetBarColor(!isSystemInDarkTheme())
                 // Surface(
-                //     // todo: может не нужен Surface
+                //     // todo: Surface нужен чтобы определить разметки на все слудющие активити в нем
                 //     modifier = Modifier.fillMaxSize(),
                 //     color = MaterialTheme.colorScheme.background
                 // ) {
@@ -64,7 +66,8 @@ class MainActivity : ComponentActivity() {
                             DeviceSelectUi(
                                 devices = devices,
                                 viewModel = viewModel,
-                                navigateToDeviceManage = { println("click") }
+                                navigateToDeviceManage = { device -> navigateToDeviceManage(navController = navController, device = device) },
+                                navigateToDeviceAdd = { navigateToDeviceAdd(navController = navController) }
                             )
                         }
                         composable(Routes.DeviceControlUi.route) {
@@ -78,7 +81,11 @@ class MainActivity : ComponentActivity() {
                             SettingsUi(navController, hiltViewModel())
                         }
                         composable(Routes.DeviceManageUi.route) {
-                            DeviceManageUi(navController, hiltViewModel())
+                            navController.previousBackStackEntry?.savedStateHandle?.get<SimmDevice?>("device")
+                                ?.let { device -> DeviceManageUi(navController, hiltViewModel(), device) }
+                        }
+                        composable(Routes.DeviceAddUi.route) {
+                            DeviceAddUi(navController, hiltViewModel())
                         }
                     }
                 // }
@@ -104,11 +111,14 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
 
+private fun navigateToDeviceManage(navController: NavController, device: SimmDevice) {
+    navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
+    navController.navigate(route = Routes.DeviceManageUi.route)
+}
 
-
-    private fun navigateToDetails(navController: NavController, device: Device) {
-        navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
-        navController.navigate(route = Routes.DeviceManageUi.route)
-    }
+private fun navigateToDeviceAdd(navController: NavController) {
+    // navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
+    navController.navigate(route = Routes.DeviceAddUi.route)
 }
