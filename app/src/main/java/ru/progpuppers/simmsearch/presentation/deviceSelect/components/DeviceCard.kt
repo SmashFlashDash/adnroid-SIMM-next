@@ -1,6 +1,7 @@
 package ru.progpuppers.simmsearch.presentation.deviceSelect.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.health.connect.datatypes.Device
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,11 +42,10 @@ import java.util.Optional
 fun DeviceCard(
     modifier: Modifier = Modifier,
     device: SimmDevice,
-    onClick: (() -> Unit)? = null   // todo: передать сюда функции для кнопок или бахнуть navController
+    onEditClick: ((SimmDevice) -> Unit) = { println("click") }
 ) {
     Card(
         modifier = Modifier.fillMaxWidth().background(Color.Transparent),
-            // .clickable { },
         elevation = CardDefaults.cardElevation(),
         colors = CardColors(Gray, Color.Black, Color.Red, Color.Red),
         shape =RoundedCornerShape(8.dp),
@@ -68,7 +68,8 @@ fun DeviceCard(
                     )
                         InputIcon( icon = Icons.Filled.EditNote,
                             modifier =  Modifier,
-                            onClick = { /*TODO*/ } )
+                            onClick = { onEditClick.invoke(device) }
+                        )
                 }
                 // TODO: вторая строка: кнопка и статус - В сети, Недоступен (не найден по блютус), Подключено,
                 Row {
@@ -81,7 +82,7 @@ fun DeviceCard(
     }
 
 
-    // todo: переделать colorScheme
+
     // val context = LocalContext.current
     // Column(
     //     // modifier = modifier.clickable { onClick?.invoke() }
@@ -122,7 +123,8 @@ fun DeviceCardPreview() {
                 name = "Device name",
                 macAddress = Optional.of("whatttidy"),
                 isEnable = false,
-            )
+            ),
+            onEditClick = { }
         )
     }
 }
@@ -132,6 +134,9 @@ fun DeviceCardPreview() {
 @Composable
 fun DeviceCardPreviewNight() {
     SimmnextTheme(dynamicColor = false) {
-        DeviceCard(device = MockData.mockSimmDevice)
+        DeviceCard(
+            device = MockData.mockSimmDevice,
+            onEditClick = { }
+        )
     }
 }

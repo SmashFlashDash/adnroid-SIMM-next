@@ -96,6 +96,10 @@ dependencies {
 
     implementation (libs.androidx.compose.material.iconsExtended)
 
+    // paging
+    implementation("androidx.paging:paging-runtime:3.3.2")
+    implementation("androidx.paging:paging-compose:3.3.2")
+
     // todo: multi module project
     // modules
     // implementation(project(":core:database"))

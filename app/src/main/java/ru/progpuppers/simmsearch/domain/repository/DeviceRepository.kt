@@ -6,6 +6,8 @@ import ru.progpuppers.simmsearch.domain.model.SimmDevice
 
 interface DeviceRepository {
 
+    fun getAllDevices(): Flow<PagingData<SimmDevice>>
+
     fun getDevices(sources: List<String>): Flow<PagingData<SimmDevice>>
 
     fun editDevice(device: SimmDevice)

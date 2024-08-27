@@ -1,7 +1,7 @@
 package ru.progpuppers.simmsearch.presentation.deviceSelect
 
+import android.health.connect.datatypes.Device
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,17 +14,35 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.paging.compose.LazyPagingItems
 import kotlinx.coroutines.launch
+import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DeviceCard
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerSheet
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.TopBar
 import ru.progpuppers.simmsearch.presentation.deviceSelect.states.DrawerItemsState
+import ru.progpuppers.simmsearch.presentation.main.Routes
 
 @Composable
-fun DeviceSelectUi(navController: NavController, viewModel: DeviceSelectViewModel) {
+fun DeviceSelectUi(
+    devices: LazyPagingItems<SimmDevice>,
+    viewModel: DeviceSelectViewModel,
+    navigateToDeviceAdd: () -> Unit = { print("click") },
+    navigateToDeviceManage: (Device) -> Unit = { print("click") },
+    navigateToDeviceControl: (Device) -> Unit = { print("click") },
+    navigateToDataMange: () -> Unit = { print("click") },
+    navigateToDataExplore: () -> Unit = { print("click") },
+    navigateToNavigationMap: () -> Unit = { print("click") },
+    navigateToSettings: () -> Unit = { print("click") }
+) {
     val uiState = DrawerItemsState.MenuState
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
+
+    // todo:
+    //  - переделать с статик цветов на material.colorScheme
+    //  - вариант navController в viewModel чтобы не передавать кучу методов
+    //  - пока берется flux devices нжен splash
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -34,45 +52,21 @@ fun DeviceSelectUi(navController: NavController, viewModel: DeviceSelectViewMode
             topBar = { TopBar { scope.launch { drawerState.open() } } }
         ) { paddingValues ->
             LazyColumn(
-                modifier = Modifier.fillMaxSize().padding(16.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
                 contentPadding = paddingValues,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // todo: get Flow
-                // val devices = viewModel.savedDevices
-                val devices = viewModel.savedDevicesMock
-                items(devices.size) { index ->
-                    DeviceCard(device = devices[index])
+                items(devices.itemCount) {
+                    devices[it]?.let { device ->
+                        DeviceCard(
+                            device = device,
+                            onEditClick = { }
+                        )
+                    }
                 }
             }
         }
     }
 }
-
-@Composable
-private fun Content(paddingValues: PaddingValues, viewModel: DeviceSelectViewModel) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = paddingValues,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        val devices = viewModel.savedDevicesMock
-        items(devices.size) { index ->
-            DeviceCard(device = devices[index])
-        }
-    }
-}
-
-// @Preview(showBackground = true)
-// @Composable
-// private fun ContentPreview() {
-//     LazyColumn(
-//         modifier = Modifier.fillMaxSize(),
-//         contentPadding = PaddingValues(10.dp),
-//         verticalArrangement = Arrangement.spacedBy(8.dp)
-//     ) {
-//         items(range.count()) { index ->
-//             Text(text = "- List item number ${index + 1}")
-//         }
-//     }
-// }

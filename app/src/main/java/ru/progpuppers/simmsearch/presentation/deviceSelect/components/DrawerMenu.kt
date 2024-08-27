@@ -25,7 +25,6 @@ fun DrawerSheet(uiState: DrawerItemsState) {
         uiState.drawerItems.forEach { item ->
             DrawerMenuItem(imageVector = item.icon, text = item.text)
         }
-        // todo: под эту шляпу можно воткнуть метрики или дашборд
     }
 }
 

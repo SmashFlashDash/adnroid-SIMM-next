@@ -1,4 +1,7 @@
 package ru.progpuppers.simmsearch.presentation.deviceAdd
 
-class DeviceAddViewModel {
+import androidx.lifecycle.ViewModel
+import javax.inject.Inject
+
+class DeviceAddViewModel @Inject constructor() : ViewModel() {
 }

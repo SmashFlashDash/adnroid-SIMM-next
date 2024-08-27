@@ -13,7 +13,7 @@ data class DeviceUseCases(
 class GetDevices(
     private val deviceRepository: DeviceRepository
 ) {
-    operator fun invoke(sources: List<String>): Flow<PagingData<SimmDevice>> {
-        return deviceRepository.getDevices(sources = sources)
+    operator fun invoke(): Flow<PagingData<SimmDevice>> {
+        return deviceRepository.getAllDevices()
     }
 }

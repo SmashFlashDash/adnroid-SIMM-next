@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.progpuppers.simmsearch.data.bthapi.BthApi
+import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 import ru.progpuppers.simmsearch.domain.usecases.DeviceUseCases
 import ru.progpuppers.simmsearch.presentation.MockData.mockSavedDevices
 import javax.inject.Inject
@@ -12,7 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DeviceSelectViewModel @Inject constructor(
     private val bthService: BthApi,
-    private val deviceUseCases: DeviceUseCases
+    // private val deviceUseCases: DeviceUseCases,
+    private val deviceRepository: DeviceRepository
 ) : ViewModel() {
 
     // todo:
@@ -27,7 +29,8 @@ class DeviceSelectViewModel @Inject constructor(
     //  - кнопка редактирования устройством перебрасывает на актвити информации об устройстве
     //    позволяет его переименовать, или посмотреть данные о нем
 
-    val savedDevices = deviceUseCases.getSavedDevices(listOf("")).cachedIn(viewModelScope)
-    val savedDevicesMock = mockSavedDevices
+    val savedDevices = deviceRepository.getAllDevices().cachedIn(viewModelScope)
+    // val savedDevices = deviceUseCases.getSavedDevices().cachedIn(viewModelScope)
+    // val savedDevicesMock = mockSavedDevices
 
 }

@@ -26,12 +26,14 @@ object AppModule {
     @Provides
     fun bthApi(): BthApi = BthApi(jsonRequestFactory, jsonResponseFactory)
 
+    // todo: тут нафиг не нужен блютуз это репозиторий засейвенных устройств
     @Singleton
     @Provides
     fun deviceRepository(bthApi: BthApi): DeviceRepository = DeviceRepositoryImpl(
         bthApi
     )
 
+    // todo: нафиг нужен лишний уровень
     @Singleton
     @Provides
     fun devicesUseCases(deviceRepository: DeviceRepository): DeviceUseCases = DeviceUseCases(

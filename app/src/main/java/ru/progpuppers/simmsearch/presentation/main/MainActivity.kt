@@ -1,5 +1,6 @@
 package ru.progpuppers.simmsearch.presentation.main
 
+import android.health.connect.datatypes.Device
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -13,14 +14,19 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.compose.collectAsLazyPagingItems
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import ru.progpuppers.simmsearch.presentation.DataManageUi
 import ru.progpuppers.simmsearch.presentation.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.SettingsUi
+import ru.progpuppers.simmsearch.presentation.deviceManage.DeviceManageUi
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectUi
+import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectViewModel
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
 
 @AndroidEntryPoint
@@ -53,7 +59,13 @@ class MainActivity : ComponentActivity() {
                         startDestination = Routes.DeviceSelectUi.route
                     ) {
                         composable(Routes.DeviceSelectUi.route) {
-                            DeviceSelectUi(navController, hiltViewModel())
+                            val viewModel: DeviceSelectViewModel = hiltViewModel()
+                            val devices = viewModel.savedDevices.collectAsLazyPagingItems()
+                            DeviceSelectUi(
+                                devices = devices,
+                                viewModel = viewModel,
+                                navigateToDeviceManage = { println("click") }
+                            )
                         }
                         composable(Routes.DeviceControlUi.route) {
                             // todo: передать инфо об устройстве
@@ -64,6 +76,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Routes.SettingsUi.route) {
                             SettingsUi(navController, hiltViewModel())
+                        }
+                        composable(Routes.DeviceManageUi.route) {
+                            DeviceManageUi(navController, hiltViewModel())
                         }
                     }
                 // }
@@ -88,5 +103,12 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+
+
+    private fun navigateToDetails(navController: NavController, device: Device) {
+        navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
+        navController.navigate(route = Routes.DeviceManageUi.route)
     }
 }
