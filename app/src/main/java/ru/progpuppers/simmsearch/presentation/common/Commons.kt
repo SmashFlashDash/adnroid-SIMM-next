@@ -35,13 +35,12 @@ fun InputIcon(
 @Composable
 fun TextIconButton(
     text: String,
-    icon: ImageVector,
-    enabled: Boolean = true,
+    iconComposable: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    description: String = "No description",
     tint: Color = MaterialTheme.colorScheme.secondary,
     contentPadding: PaddingValues = ButtonDefaults.TextButtonContentPadding,
-    onClick: () -> Unit
+    enabled: Boolean = true,
+    onClick: () -> Unit,
 ) {
     TextButton(
         onClick = onClick,
@@ -49,17 +48,18 @@ fun TextIconButton(
         enabled = enabled,
         contentPadding = contentPadding
     ) {
+        // Row(
+        //     modifier = Modifier.fillMaxWidth(),
+        //     verticalAlignment = Alignment.CenterVertically,
+        //     horizontalArrangement = Arrangement.SpaceBetween
+        // ) {
         Text(
-            modifier = Modifier.padding(0.dp),
             text = text,
             color = tint
         )
-        Icon(
-            modifier = Modifier.padding(0.dp),
-            imageVector = icon,
-            contentDescription = description,
-            tint = tint
-        )
+        iconComposable()
+
+        // }
     }
 }
 

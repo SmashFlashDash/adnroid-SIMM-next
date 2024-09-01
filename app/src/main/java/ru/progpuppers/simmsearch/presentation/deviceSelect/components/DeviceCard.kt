@@ -18,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -104,30 +105,54 @@ fun DeviceCard(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(2f)
                     ) {
                         Text(
                             text = device.description,
-                            modifier = Modifier.padding(5.dp),
-                            overflow = TextOverflow.Ellipsis
+                            modifier = Modifier.padding(8.dp),
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis,
                         )
                     }
-                    Column {
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.Start
+                    ) {
                         TextIconButton(
                             text = "Подключить",
-                            icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                            modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
-                            contentPadding = PaddingValues(5.dp, 5.dp)
-                        ) { }
-                        TextIconButton(
-                            text = "Управление",
-                            icon = Icons.Filled.Cached,
                             modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
                             contentPadding = PaddingValues(5.dp, 5.dp),
-                            enabled = false,
-                        ) {
-
-                        }
+                            iconComposable = {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                    contentDescription = "No description",
+                                    tint = MaterialTheme.colorScheme.secondary
+                                )
+                            },
+                            // todo: здесь должна быть хурма из byh api
+                            //  вызвать коннект к коннкретному устройству
+                            //  начать крутить load icon (Icons.Filled.Cached) либо качнуть гифку
+                            //  вергнуть корутиной результат, если подключилось написать Подключено
+                            //  если нет написать всплывающее окно с статусом и вернуть в стейт Поключить
+                            onClick = { onConnectClick() }
+                        )
+                        TextIconButton(
+                            text = "Управлять",
+                            modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+                            contentPadding = PaddingValues(5.dp, 5.dp),
+                            iconComposable = {
+                                Icon(
+                                    modifier = Modifier.padding(5.dp, 0.dp, 0.dp, 0.dp),
+                                    imageVector = Icons.Filled.Cached,
+                                    contentDescription = "No description",
+                                    tint = MaterialTheme.colorScheme.secondary
+                                )
+                            },
+                            enabled = false,    // todo: если передаем цвет в текст, оверрайдит дефолтноый при enabled False
+                            // todo: перейти в ui управления
+                            onClick = { onControlClick() }
+                        )
                     }
                 }
             }
