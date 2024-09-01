@@ -8,7 +8,7 @@ object MockData {
     val mockSimmDevice = SimmDevice(
         name = "Device name",
         macAddress = Optional.of("whatttidy"),
-        isEnable = false,
+        description = "Описание устройства",
     )
 
     val mockSavedDevices

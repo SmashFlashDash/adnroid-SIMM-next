@@ -17,6 +17,7 @@ import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopUpState
 import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopup
+import ru.progpuppers.simmsearch.presentation.common.isVisible
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,13 +26,14 @@ fun TopBar(
     onAddIconClick: () -> Unit,
     onMenuIconClick: () -> Unit
 ) {
-    var notAvailablePopupVisibility by rememberSaveable {
+    // show notImplemented Dialog
+    var notAvailablePopupState by rememberSaveable {
         mutableStateOf(
             NotAvailablePopUpState.GONE
         )
     }
-    if (notAvailablePopupVisibility.isVisible()) {
-        NotAvailablePopup { notAvailablePopupVisibility = NotAvailablePopUpState.GONE }
+    if (notAvailablePopupState.isVisible()) {
+        NotAvailablePopup { notAvailablePopupState = NotAvailablePopUpState.GONE }
     }
 
     TopAppBar(

@@ -1,7 +1,9 @@
 package ru.progpuppers.simmsearch.presentation.common
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import ru.progpuppers.simmsearch.app.R
 
 
@@ -26,6 +29,37 @@ fun InputIcon(
 ) {
     IconButton(onClick = onClick) {
         Icon(icon, tint = tint, modifier = modifier, contentDescription = description)
+    }
+}
+
+@Composable
+fun TextIconButton(
+    text: String,
+    icon: ImageVector,
+    enabled: Boolean = true,
+    modifier: Modifier = Modifier,
+    description: String = "No description",
+    tint: Color = MaterialTheme.colorScheme.secondary,
+    contentPadding: PaddingValues = ButtonDefaults.TextButtonContentPadding,
+    onClick: () -> Unit
+) {
+    TextButton(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        contentPadding = contentPadding
+    ) {
+        Text(
+            modifier = Modifier.padding(0.dp),
+            text = text,
+            color = tint
+        )
+        Icon(
+            modifier = Modifier.padding(0.dp),
+            imageVector = icon,
+            contentDescription = description,
+            tint = tint
+        )
     }
 }
 
@@ -49,11 +83,9 @@ fun NotAvailablePopup(onDismiss: () -> Unit) {
 
 enum class NotAvailablePopUpState {
     VISIBLE, GONE;
-    fun isVisible(): Boolean = this == VISIBLE
 }
 
-// fun NotAvailablePopUpVisibility.isVisible(): Boolean =
-//     this == NotAvailablePopUpVisibility.VISIBLE
+fun NotAvailablePopUpState.isVisible(): Boolean = this == NotAvailablePopUpState.VISIBLE
 
 fun Modifier.padding(start: Dp, other: Dp) = this then Modifier.padding(start, other, other, other)
 

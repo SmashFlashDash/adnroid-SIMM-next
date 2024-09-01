@@ -1,17 +1,18 @@
 package ru.progpuppers.simmsearch.presentation.deviceSelect.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.health.connect.datatypes.Device
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Cached
 import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -22,6 +23,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.MockData
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
+import ru.progpuppers.simmsearch.presentation.common.TextIconButton
 import ru.progpuppers.simmsearch.ui.theme.Gray
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
 import java.util.Optional
@@ -42,76 +48,91 @@ import java.util.Optional
 fun DeviceCard(
     modifier: Modifier = Modifier,
     device: SimmDevice,
-    onEditClick: ((SimmDevice) -> Unit)
+    onEditClick: ((SimmDevice) -> Unit),
+    onConnectClick: () -> Unit,
+    onControlClick: () -> Unit,
 ) {
+    // todo: здесь нужен state
+    // - если устройтсво подключено - подключить меняется на отключить, и мб цувет кнопки
+    // - если подключено становится доступа кнопка управлять
+    var isEnabled by remember { mutableStateOf(true) }
+
+
+    // val context = LocalContext.current
+
+
     Card(
-        modifier = Modifier.fillMaxWidth().background(Color.Transparent),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent),
         elevation = CardDefaults.cardElevation(),
         colors = CardColors(Gray, Color.Black, Color.Red, Color.Red),
-        shape =RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(8.dp),
     ) {
         CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
-            Column (
-                modifier = modifier.fillMaxWidth()
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
                     .padding(start = 16.dp, top = 0.dp, end = 0.dp, bottom = 8.dp)
                     .background(Color.Transparent)
             ) {
-                Row (
-                    modifier = Modifier.fillMaxWidth().background(Color.Transparent),
-                    horizontalArrangement = Arrangement.End
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Transparent),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = device.name, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium,
+                    Text(
+                        text = device.name,
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(horizontal = 24.dp, vertical = 0.dp)
-                            .weight(1f).align(Alignment.CenterVertically),
-                        maxLines = 1, overflow = TextOverflow.Ellipsis
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp, vertical = 0.dp)
+                            .weight(1f)
+                            .align(Alignment.CenterVertically),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
-                        InputIcon( icon = Icons.Filled.EditNote,
-                            modifier =  Modifier,
-                            onClick = { onEditClick.invoke(device) }
-                        )
+                    InputIcon(icon = Icons.Filled.EditNote,
+                        modifier = Modifier,
+                        onClick = { onEditClick.invoke(device) }
+                    )
                 }
-                // TODO: вторая строка: кнопка и статус - В сети, Недоступен (не найден по блютус), Подключено,
-                Row {
-                    Text(text = "great")
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Text(text = "mouse")
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(
+                            text = device.description,
+                            modifier = Modifier.padding(5.dp),
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    Column {
+                        TextIconButton(
+                            text = "Подключить",
+                            icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+                            contentPadding = PaddingValues(5.dp, 5.dp)
+                        ) { }
+                        TextIconButton(
+                            text = "Управление",
+                            icon = Icons.Filled.Cached,
+                            modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+                            contentPadding = PaddingValues(5.dp, 5.dp),
+                            enabled = false,
+                        ) {
+
+                        }
+                    }
                 }
             }
         }
     }
-
-
-
-    // val context = LocalContext.current
-    // Column(
-    //     // modifier = modifier.clickable { onClick?.invoke() }
-    //     modifier = Modifier
-    //         .padding(16.dp)
-    //         .border(2.dp, MaterialTheme.colorScheme.primary, shape)
-    //         // .background(MaterialTheme.colorScheme.background, shape)
-    //         .padding(16.dp)
-    // ) {
-    //     Row(
-    //         horizontalArrangement = Arrangement.SpaceAround,
-    //         verticalAlignment = Alignment.Top
-    //     ) {
-    //         Text(
-    //             text = device.name,
-    //             style = MaterialTheme.typography.titleMedium,
-    //         )
-    //         Button(onClick = { /*TODO*/ }) {
-    //
-    //         }
-    //     }
-    //
-    //     Row(horizontalArrangement = Arrangement.SpaceAround) {
-    //         Button(onClick = { /*TODO*/ }) {
-    //
-    //         }
-    //     }
-    // }
-
 }
 
 @Preview(showBackground = true)
@@ -122,9 +143,11 @@ fun DeviceCardPreview() {
             device = SimmDevice(
                 name = "Device name",
                 macAddress = Optional.of("whatttidy"),
-                isEnable = false,
+                description = "Описание устройства"
             ),
-            onEditClick = { }
+            onEditClick = { },
+            onConnectClick = { },
+            onControlClick = { },
         )
     }
 }
@@ -136,7 +159,9 @@ fun DeviceCardPreviewNight() {
     SimmnextTheme(dynamicColor = false) {
         DeviceCard(
             device = MockData.mockSimmDevice,
-            onEditClick = { }
+            onEditClick = { },
+            onConnectClick = { },
+            onControlClick = { },
         )
     }
 }

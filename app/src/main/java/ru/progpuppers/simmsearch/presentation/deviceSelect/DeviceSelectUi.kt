@@ -16,9 +16,9 @@ import androidx.paging.compose.LazyPagingItems
 import kotlinx.coroutines.launch
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DeviceCard
+import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerItemsState
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerSheet
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.TopBar
-import ru.progpuppers.simmsearch.presentation.deviceSelect.states.DrawerItemsState
 
 @Composable
 fun DeviceSelectUi(
@@ -63,7 +63,9 @@ fun DeviceSelectUi(
                     devices[it]?.let { device ->
                         DeviceCard(
                             device = device,
-                            onEditClick = { navigateToDeviceEdit(device) }
+                            onEditClick = { navigateToDeviceEdit(device) },
+                            onConnectClick = { print("onConnectClick") },
+                            onControlClick = { print("onControlClick") },
                         )
                     }
                 }
