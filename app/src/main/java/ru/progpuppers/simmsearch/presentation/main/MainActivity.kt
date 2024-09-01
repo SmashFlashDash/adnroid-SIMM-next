@@ -1,6 +1,5 @@
 package ru.progpuppers.simmsearch.presentation.main
 
-import android.health.connect.datatypes.Device
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -20,13 +19,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.DataManageUi
 import ru.progpuppers.simmsearch.presentation.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.SettingsUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceAddUi
-import ru.progpuppers.simmsearch.presentation.deviceManage.DeviceManageUi
+import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditUi
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectUi
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectViewModel
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
@@ -63,12 +61,28 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.DeviceSelectUi.route) {
                             val viewModel: DeviceSelectViewModel = hiltViewModel()
                             val devices = viewModel.savedDevices.collectAsLazyPagingItems()
+                            // todo: доделать кард device
+                            //  - псоле активи и логики addDebvice
+                            //  - добавить логику подключения
                             DeviceSelectUi(
                                 devices = devices,
                                 viewModel = viewModel,
-                                navigateToDeviceManage = { device -> navigateToDeviceManage(navController = navController, device = device) },
+                                navigateToDeviceEdit = { device -> navigateToDeviceEdit(navController = navController, device = device) },
                                 navigateToDeviceAdd = { navigateToDeviceAdd(navController = navController) }
                             )
+                        }
+                // todo:
+                //  - лучший вариант для навигации
+                //  - сделать для дргуих экранов AppBar с навигацией назазд, доп функции
+
+                        // todo: сделать активити
+                        composable(Routes.DeviceAddUi.route) {
+                            DeviceAddUi(navController, hiltViewModel())
+                        }
+                        // todo: сделать активити
+                        composable(Routes.DeviceEditUi.route) {
+                            navController.previousBackStackEntry?.savedStateHandle?.get<SimmDevice?>("device")
+                                ?.let { device -> DeviceEditUi(navController, hiltViewModel(), device) }
                         }
                         composable(Routes.DeviceControlUi.route) {
                             // todo: передать инфо об устройстве
@@ -79,13 +93,6 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Routes.SettingsUi.route) {
                             SettingsUi(navController, hiltViewModel())
-                        }
-                        composable(Routes.DeviceManageUi.route) {
-                            navController.previousBackStackEntry?.savedStateHandle?.get<SimmDevice?>("device")
-                                ?.let { device -> DeviceManageUi(navController, hiltViewModel(), device) }
-                        }
-                        composable(Routes.DeviceAddUi.route) {
-                            DeviceAddUi(navController, hiltViewModel())
                         }
                     }
                 // }
@@ -113,12 +120,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private fun navigateToDeviceManage(navController: NavController, device: SimmDevice) {
+private fun navigateToDeviceEdit(navController: NavController, device: SimmDevice) {
     navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
-    navController.navigate(route = Routes.DeviceManageUi.route)
+    navController.navigate(route = Routes.DeviceEditUi.route)
 }
 
 private fun navigateToDeviceAdd(navController: NavController) {
-    // navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
     navController.navigate(route = Routes.DeviceAddUi.route)
 }

@@ -1,6 +1,5 @@
 package ru.progpuppers.simmsearch.presentation.deviceSelect
 
-import android.health.connect.datatypes.Device
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -26,7 +25,7 @@ fun DeviceSelectUi(
     devices: LazyPagingItems<SimmDevice>,
     viewModel: DeviceSelectViewModel,
     navigateToDeviceAdd: () -> Unit,
-    navigateToDeviceManage: (SimmDevice) -> Unit,
+    navigateToDeviceEdit: (SimmDevice) -> Unit,
     navigateToDeviceControl: (SimmDevice) -> Unit = { print("click") },
     navigateToDataMange: () -> Unit = { print("click") },
     navigateToDataExplore: () -> Unit = { print("click") },
@@ -64,7 +63,7 @@ fun DeviceSelectUi(
                     devices[it]?.let { device ->
                         DeviceCard(
                             device = device,
-                            onEditClick = { navigateToDeviceManage(device) }
+                            onEditClick = { navigateToDeviceEdit(device) }
                         )
                     }
                 }

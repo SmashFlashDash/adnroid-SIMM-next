@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.presentation.deviceManage
+package ru.progpuppers.simmsearch.presentation.deviceEdit
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,9 +10,9 @@ import androidx.navigation.NavController
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 
 @Composable
-fun DeviceManageUi(
+fun DeviceEditUi(
     navController: NavController,
-    viewModel: DeviceManageViewModel,
+    viewModel: DeviceEditViewModel,
     device: SimmDevice
 ) {
     Column (modifier = Modifier.fillMaxSize().statusBarsPadding()) {
