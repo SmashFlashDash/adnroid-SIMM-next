@@ -53,6 +53,10 @@ class MainActivity : ComponentActivity() {
                 //     modifier = Modifier.fillMaxSize(),
                 //     color = MaterialTheme.colorScheme.background
                 // ) {
+                // todo:
+                //  - лучший вариант для навигации
+                //  - сделать для дргуих экранов AppBar с навигацией назазд, доп функции
+                //  - норм варинт передавать lambda navContoller.navigate(it)
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
@@ -71,13 +75,12 @@ class MainActivity : ComponentActivity() {
                                 navigateToDeviceAdd = { navigateToDeviceAdd(navController = navController) }
                             )
                         }
-                // todo:
-                //  - лучший вариант для навигации
-                //  - сделать для дргуих экранов AppBar с навигацией назазд, доп функции
-
                         // todo: сделать активити
                         composable(Routes.DeviceAddUi.route) {
-                            DeviceAddUi(navController, hiltViewModel())
+                            DeviceAddUi(
+                                viewModel = hiltViewModel(),
+                                onBackClick = { navController.popBackStack() }
+                            )
                         }
                         // todo: сделать активити
                         composable(Routes.DeviceEditUi.route) {

@@ -18,7 +18,7 @@ import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DeviceCard
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerItemsState
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerSheet
-import ru.progpuppers.simmsearch.presentation.deviceSelect.components.TopBar
+import ru.progpuppers.simmsearch.presentation.deviceSelect.components.TopBarDrawer
 
 @Composable
 fun DeviceSelectUi(
@@ -47,11 +47,10 @@ fun DeviceSelectUi(
     ) {
         Scaffold(
             topBar = {
-                TopBar (
-                    onAddIconClick = { navigateToDeviceAdd() }
-                ) {
-                    scope.launch { drawerState.open() }
-                }
+                TopBarDrawer (
+                    onAddIconClick = { navigateToDeviceAdd() },
+                    onMenuIconClick = { scope.launch { drawerState.open() } }
+                )
             }
         ) { paddingValues ->
             LazyColumn(

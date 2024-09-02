@@ -13,7 +13,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopUpState
 import ru.progpuppers.simmsearch.presentation.common.NotAvailablePopup
@@ -22,7 +21,7 @@ import ru.progpuppers.simmsearch.presentation.common.isVisible
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(
+fun TopBarDrawer(
     onAddIconClick: () -> Unit,
     onMenuIconClick: () -> Unit
 ) {
@@ -65,6 +64,6 @@ fun TopBar(
 
 @Preview(showBackground = true)
 @Composable
-fun TopBarPreview() {
-    TopBar (onAddIconClick = { }) { { } }
+fun TopBarDrawerPreview() {
+    TopBarDrawer (onAddIconClick = { }) { }
 }

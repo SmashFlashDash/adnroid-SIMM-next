@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
@@ -117,7 +118,7 @@ fun DeviceCard(
                     }
                     Column(
                         modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.Start
+                        horizontalAlignment = Alignment.End
                     ) {
                         TextIconButton(
                             text = "Подключить",
@@ -143,7 +144,7 @@ fun DeviceCard(
                             contentPadding = PaddingValues(5.dp, 5.dp),
                             iconComposable = {
                                 Icon(
-                                    modifier = Modifier.padding(5.dp, 0.dp, 0.dp, 0.dp),
+                                    modifier = Modifier.padding(3.dp, 0.dp, 3.dp, 0.dp).size(20.dp),
                                     imageVector = Icons.Filled.Cached,
                                     contentDescription = "No description",
                                     tint = MaterialTheme.colorScheme.secondary
