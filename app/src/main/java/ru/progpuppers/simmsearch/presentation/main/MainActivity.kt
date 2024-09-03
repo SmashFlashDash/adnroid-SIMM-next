@@ -1,10 +1,16 @@
 package ru.progpuppers.simmsearch.presentation.main
 
+import android.Manifest
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -37,6 +43,7 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen()
         enableEdgeToEdge()
+        initPermissions()
         // todo: заимплементить тему
         //  https://developer.android.com/develop/ui/views/theming/darktheme
         //  https://stackoverflow.com/questions/69186894/trigger-dark-mode-of-system-from-application-programmatically-in-android-studio
@@ -44,7 +51,6 @@ class MainActivity : ComponentActivity() {
 
         // todo: эт нафига
         // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-
         setContent {
             SimmnextTheme {
                 SetBarColor(!isSystemInDarkTheme())
@@ -63,10 +69,21 @@ class MainActivity : ComponentActivity() {
                 //  - сделать для дргуих экранов AppBar с навигацией назазд, доп функции
                 //  - норм варинт передавать lambda navContoller.navigate(it), а в функиця[ перадавать Route и запускать
 
-                // todo: hiltViewModel можно инжектить через di
+                        // todo: запомнить с какой вкладки вышли прошлый
+                        // val backStackState = navController.currentBackStackEntryAsState().value
+                        // var selectedItem by rememberSaveable {
+                        //     mutableStateOf(0)
+                        // }
+                        // selectedItem = when (backStackState?.destination?.route) {
+                        //     Route.HomeScreen.route -> 0
+                        //     Route.SearchScreen.route -> 1
+                        //     Route.BookmarkScreen.route -> 2
+                        //     else -> 0
+                        // }
 
                         composable(Routes.DeviceSelectUi.route) {
                             val viewModel: DeviceSelectViewModel = hiltViewModel()
+                            viewModel.startScan()
                             val devices = viewModel.savedDevices.collectAsLazyPagingItems()
                             // todo: доделать кард device
                             //  - псоле активи и логики addDebvice
@@ -126,6 +143,45 @@ class MainActivity : ComponentActivity() {
                     navigationBarStyle = SystemBarStyle.dark(barColor),
                 )
             }
+        }
+    }
+
+    private val bluetoothManager by lazy {
+        applicationContext.getSystemService(BluetoothManager::class.java)
+    }
+    private val bluetoothAdapter by lazy {
+        bluetoothManager?.adapter
+    }
+
+    private val isBluetoothEnabled: Boolean
+        get() = bluetoothAdapter?.isEnabled == true
+
+    private fun initPermissions() {
+        val enableBluetoothLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { /* Not needed */ }
+
+        val permissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { perms ->
+            val canEnableBluetooth = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                perms[Manifest.permission.BLUETOOTH_CONNECT] == true
+            } else true
+
+            if(canEnableBluetooth && !isBluetoothEnabled) {
+                enableBluetoothLauncher.launch(
+                    Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                )
+            }
+        }
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            permissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                )
+            )
         }
     }
 }

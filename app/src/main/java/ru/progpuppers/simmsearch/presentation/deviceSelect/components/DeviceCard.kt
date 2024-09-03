@@ -43,7 +43,6 @@ import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.TextIconButton
 import ru.progpuppers.simmsearch.ui.theme.Gray
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
-import java.util.Optional
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -168,7 +167,7 @@ fun DeviceCardPreview() {
         DeviceCard(
             device = SimmDevice(
                 name = "Device name",
-                macAddress = Optional.of("whatttidy"),
+                address = "whatttidy",
                 description = "Описание устройства"
             ),
             onEditClick = { },
