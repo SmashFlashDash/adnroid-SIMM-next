@@ -21,9 +21,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import dagger.hilt.android.AndroidEntryPoint
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.DataManageUi
-import ru.progpuppers.simmsearch.presentation.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.SettingsUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceAddUi
+import ru.progpuppers.simmsearch.presentation.deviceControl.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditUi
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectUi
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectViewModel
@@ -53,15 +53,18 @@ class MainActivity : ComponentActivity() {
                 //     modifier = Modifier.fillMaxSize(),
                 //     color = MaterialTheme.colorScheme.background
                 // ) {
-                // todo:
-                //  - лучший вариант для навигации
-                //  - сделать для дргуих экранов AppBar с навигацией назазд, доп функции
-                //  - норм варинт передавать lambda navContoller.navigate(it)
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
                         startDestination = Routes.DeviceSelectUi.route
                     ) {
+                // todo:
+                //  - лучший вариант для навигации
+                //  - сделать для дргуих экранов AppBar с навигацией назазд, доп функции
+                //  - норм варинт передавать lambda navContoller.navigate(it), а в функиця[ перадавать Route и запускать
+
+                // todo: hiltViewModel можно инжектить через di
+
                         composable(Routes.DeviceSelectUi.route) {
                             val viewModel: DeviceSelectViewModel = hiltViewModel()
                             val devices = viewModel.savedDevices.collectAsLazyPagingItems()
@@ -72,24 +75,31 @@ class MainActivity : ComponentActivity() {
                                 devices = devices,
                                 viewModel = viewModel,
                                 navigateToDeviceEdit = { device -> navigateToDeviceEdit(navController = navController, device = device) },
-                                navigateToDeviceAdd = { navigateToDeviceAdd(navController = navController) }
+                                navigateToDeviceAdd = { navigateToDeviceAdd(navController = navController) },
+                                navigateToDeviceControl = { device -> navigateToDeviceControl(navController = navController, device = device)}
                             )
                         }
-                        // todo: сделать активити
                         composable(Routes.DeviceAddUi.route) {
                             DeviceAddUi(
                                 viewModel = hiltViewModel(),
-                                onBackClick = { navController.popBackStack() }
+                                onBackClick = { navController.popBackStack() },
                             )
                         }
-                        // todo: сделать активити
                         composable(Routes.DeviceEditUi.route) {
                             navController.previousBackStackEntry?.savedStateHandle?.get<SimmDevice?>("device")
-                                ?.let { device -> DeviceEditUi(navController, hiltViewModel(), device) }
+                                ?.let { device -> DeviceEditUi(
+                                    viewModel = hiltViewModel(),
+                                    device = device,
+                                    onBackClick = { navController.popBackStack() }
+                                )}
                         }
                         composable(Routes.DeviceControlUi.route) {
-                            // todo: передать инфо об устройстве
-                            DeviceControlUi(navController, hiltViewModel())
+                            navController.previousBackStackEntry?.savedStateHandle?.get<SimmDevice?>("device")
+                                ?.let { device -> DeviceControlUi(
+                                    viewModel = hiltViewModel(),
+                                    device = device,
+                                    onBackClick = { navController.popBackStack() }
+                                )}
                         }
                         composable(Routes.DataManageUi.route) {
                             DataManageUi(navController, hiltViewModel())
@@ -126,6 +136,11 @@ class MainActivity : ComponentActivity() {
 private fun navigateToDeviceEdit(navController: NavController, device: SimmDevice) {
     navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
     navController.navigate(route = Routes.DeviceEditUi.route)
+}
+
+private fun navigateToDeviceControl(navController: NavController, device: SimmDevice) {
+    navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
+    navController.navigate(route = Routes.DeviceControlUi.route)
 }
 
 private fun navigateToDeviceAdd(navController: NavController) {

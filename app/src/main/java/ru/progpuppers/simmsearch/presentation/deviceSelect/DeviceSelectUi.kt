@@ -22,8 +22,8 @@ import ru.progpuppers.simmsearch.presentation.deviceSelect.components.TopBarDraw
 
 @Composable
 fun DeviceSelectUi(
-    devices: LazyPagingItems<SimmDevice>,
     viewModel: DeviceSelectViewModel,
+    devices: LazyPagingItems<SimmDevice>,
     navigateToDeviceAdd: () -> Unit,
     navigateToDeviceEdit: (SimmDevice) -> Unit,
     navigateToDeviceControl: (SimmDevice) -> Unit = { print("click") },
@@ -40,6 +40,7 @@ fun DeviceSelectUi(
     //  - переделать с статик цветов на material.colorScheme
     //  - вариант navController в viewModel чтобы не передавать кучу методов
     //  - пока берется flux devices нжен splash
+    //  - как увязать ui с viewModel
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -64,7 +65,7 @@ fun DeviceSelectUi(
                             device = device,
                             onEditClick = { navigateToDeviceEdit(device) },
                             onConnectClick = { print("onConnectClick") },
-                            onControlClick = { print("onControlClick") },
+                            onControlClick = { navigateToDeviceControl(device) },
                         )
                     }
                 }

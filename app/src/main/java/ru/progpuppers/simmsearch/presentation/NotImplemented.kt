@@ -17,10 +17,6 @@ fun DataManageUi(navController: NavController, viewModel: DataManageScreenViewMo
     Text(text = "Data manage Screen")
 }
 
-@Composable
-fun DeviceControlUi(navController: NavController, viewModel: DeviceControlScreenViewModel) {
-    Text(text = "Device Control Screen")
-}
 
 @HiltViewModel
 class SettingsScreenViewModel @Inject constructor() : ViewModel() {
@@ -29,9 +25,5 @@ class SettingsScreenViewModel @Inject constructor() : ViewModel() {
 
 @HiltViewModel
 class DataManageScreenViewModel @Inject constructor() : ViewModel() {
-
-}
-@HiltViewModel
-class DeviceControlScreenViewModel @Inject constructor() : ViewModel() {
 
 }
