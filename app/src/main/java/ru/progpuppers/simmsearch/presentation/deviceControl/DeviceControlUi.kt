@@ -7,13 +7,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.common.TopBar
 
 @Composable
 fun DeviceControlUi(
-    viewModel: DeviceControlViewModel,
+    viewModel: DeviceControlViewModel = hiltViewModel(),
     device: SimmDevice,
     onBackClick: () -> Unit,
     onExtendClick: () -> Unit = { println("click") } // define it here

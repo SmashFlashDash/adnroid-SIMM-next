@@ -10,12 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ru.progpuppers.simmsearch.presentation.common.TopBar
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
 
 @Composable
 fun DeviceAddUi(
-    viewModel: DeviceAddViewModel?,
+    viewModel: DeviceAddViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onExtendClick: () -> Unit = { println("click") } // define it here
 ) {
@@ -55,6 +56,6 @@ fun DeviceAddUi(
 @Composable
 fun DeviceCardPreview() {
     SimmnextTheme(dynamicColor = false) {
-        DeviceAddUi(null, { }, { })
+        DeviceAddUi(onBackClick = { }, onExtendClick = { })
     }
 }

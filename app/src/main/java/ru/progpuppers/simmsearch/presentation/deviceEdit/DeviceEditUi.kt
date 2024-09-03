@@ -14,12 +14,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.common.TopBar
 
 @Composable
 fun DeviceEditUi(
-    viewModel: DeviceEditViewModel,
+    viewModel: DeviceEditViewModel = hiltViewModel(),
     device: SimmDevice,
     onBackClick: () -> Unit,
     onExtendClick: () -> Unit = { println("click") } // define it here

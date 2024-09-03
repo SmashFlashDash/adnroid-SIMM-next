@@ -81,14 +81,12 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Routes.DeviceAddUi.route) {
                             DeviceAddUi(
-                                viewModel = hiltViewModel(),
                                 onBackClick = { navController.popBackStack() },
                             )
                         }
                         composable(Routes.DeviceEditUi.route) {
                             navController.previousBackStackEntry?.savedStateHandle?.get<SimmDevice?>("device")
                                 ?.let { device -> DeviceEditUi(
-                                    viewModel = hiltViewModel(),
                                     device = device,
                                     onBackClick = { navController.popBackStack() }
                                 )}
@@ -96,16 +94,15 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.DeviceControlUi.route) {
                             navController.previousBackStackEntry?.savedStateHandle?.get<SimmDevice?>("device")
                                 ?.let { device -> DeviceControlUi(
-                                    viewModel = hiltViewModel(),
                                     device = device,
                                     onBackClick = { navController.popBackStack() }
                                 )}
                         }
                         composable(Routes.DataManageUi.route) {
-                            DataManageUi(navController, hiltViewModel())
+                            DataManageUi(navController)
                         }
                         composable(Routes.SettingsUi.route) {
-                            SettingsUi(navController, hiltViewModel())
+                            SettingsUi(navController)
                         }
                     }
                 // }
