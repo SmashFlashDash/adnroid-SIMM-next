@@ -7,14 +7,18 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
+import ru.progpuppers.simmsearch.app.BuildConfig
 import ru.progpuppers.simmsearch.data.bthapi.BluetoothControllerImpl
+import ru.progpuppers.simmsearch.data.bthapi.BluetoothControllerTestImpl
 import ru.progpuppers.simmsearch.data.bthapi.BthApi
 import ru.progpuppers.simmsearch.data.database.DeviceRepositoryImpl
+import ru.progpuppers.simmsearch.data.database.DeviceRepositoryMockImpl
 import ru.progpuppers.simmsearch.domain.controller.BluetoothController
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 import ru.progpuppers.simmsearch.domain.usecases.DeviceUseCases
 import ru.progpuppers.simmsearch.domain.usecases.GetDevices
 import javax.inject.Singleton
+import kotlin.math.log
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -29,7 +33,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideBluetoothController(@ApplicationContext context: Context): BluetoothController {
-        return BluetoothControllerImpl(context)
+        return if (BuildConfig.BUILD_TYPE == "release") BluetoothControllerImpl(context)
+        else BluetoothControllerTestImpl(context)
     }
 
     @Singleton
@@ -38,7 +43,10 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun deviceRepository(): DeviceRepository = DeviceRepositoryImpl()
+    fun deviceRepository(): DeviceRepository {
+        return if (BuildConfig.BUILD_TYPE == "release") DeviceRepositoryImpl()
+        else DeviceRepositoryMockImpl()
+    }
 
     // todo: нафиг нужен лишний уровень
     @Singleton

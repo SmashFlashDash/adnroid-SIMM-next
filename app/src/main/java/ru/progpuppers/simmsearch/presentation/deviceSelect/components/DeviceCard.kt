@@ -38,7 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
-import ru.progpuppers.simmsearch.presentation.MockData
+import ru.progpuppers.simmsearch.data.MockData
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.TextIconButton
 import ru.progpuppers.simmsearch.ui.theme.Gray

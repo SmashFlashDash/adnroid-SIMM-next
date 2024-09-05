@@ -15,6 +15,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -84,12 +85,14 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.DeviceSelectUi.route) {
                             val viewModel: DeviceSelectViewModel = hiltViewModel()
                             viewModel.startScan()
-                            val devices = viewModel.savedDevices.collectAsLazyPagingItems()
+                            viewModel.state.collectAsState()
+                            // val devices = viewModel.state.collectAsLazyPagingItems()
                             // todo: доделать кард device
                             //  - псоле активи и логики addDebvice
                             //  - добавить логику подключения
                             DeviceSelectUi(
-                                devices = devices,
+                                // todo: на lazy
+                                devices = viewModel.state.collectAsState().value.scannedPairedSavedDevices,
                                 viewModel = viewModel,
                                 navigateToDeviceEdit = { device -> navigateToDeviceEdit(navController = navController, device = device) },
                                 navigateToDeviceAdd = { navigateToDeviceAdd(navController = navController) },

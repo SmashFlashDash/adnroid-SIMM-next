@@ -40,10 +40,11 @@ class DeviceSelectViewModel @Inject constructor(
     //  - кнопка редактирования устройством перебрасывает на актвити информации об устройстве
     //    позволяет его переименовать, или посмотреть данные о нем
 
-    val savedDevices = deviceRepository.getAllDevices().cachedIn(viewModelScope)
+    // val savedDevices = deviceRepository.getAllDevices().cachedIn(viewModelScope)
     // val savedDevices = deviceUseCases.getSavedDevices().cachedIn(viewModelScope)
     // val savedDevicesMock = mockSavedDevices
 
+    // todo: залупить
     fun startScan() = bluetoothController.startDiscovery()
 
     fun stopScan() = bluetoothController.stopDiscovery()
@@ -53,7 +54,7 @@ class DeviceSelectViewModel @Inject constructor(
         return combine(
             bluetoothController.scannedDevices,
             bluetoothController.pairedDevices,
-            bluetoothController.pairedDevices,
+            deviceRepository.savedDevices,
             _state
         ) { scanedDevices, pairedDevices, savedDevices, state ->
             state.copy(
@@ -63,11 +64,12 @@ class DeviceSelectViewModel @Inject constructor(
                     .filter { savedDevices.contains(it) }
                     .map { device ->
                         SimmDevice(
-                            name = device.name,
+                            // todo: т.к. в моке нет name мапить в объкеты
+                            name = if (device.name == null) device.address.toString()  else device.name,
                             address = device.address.toString(),
                             isEnable = false,
                             isConnected = pairedDevices.contains(device),
-                            description = ""
+                            description = "Нет описания"
                         )
                     }
             )

@@ -31,6 +31,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // buildConfigField("boolean", "IS_PROD_ENV", "false")
+        }
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            // buildConfigField("boolean", "IS_DEV_ENV", "true")
         }
     }
     compileOptions {
@@ -42,6 +51,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -79,7 +89,7 @@ dependencies {
     // coroutines
     implementation(libs.kotlinx.coroutines.android)
     // implementation(libs.kotlinx.coroutines.core)
-    //splashscreen
+    // splashscreen
     implementation(libs.androidx.core.splashscreen)
     // room
     ksp(libs.androidx.room.compiler)
@@ -94,7 +104,7 @@ dependencies {
     // ui-theme
     implementation("androidx.activity:activity-compose:1.9.1")
 
-    implementation (libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.compose.material.iconsExtended)
 
     // paging
     implementation("androidx.paging:paging-runtime:3.3.2")
@@ -107,6 +117,8 @@ dependencies {
 
     // test
     testImplementation(libs.junit)
+    testImplementation ("org.robolectric:robolectric:4.13")
+    implementation ("org.robolectric:robolectric:4.13")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

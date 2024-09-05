@@ -1,7 +1,9 @@
 package ru.progpuppers.simmsearch.presentation.deviceSelect
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DrawerValue
@@ -23,7 +25,8 @@ import ru.progpuppers.simmsearch.presentation.deviceSelect.components.TopBarDraw
 @Composable
 fun DeviceSelectUi(
     viewModel: DeviceSelectViewModel,
-    devices: LazyPagingItems<SimmDevice>,
+    // devices: LazyPagingItems<SimmDevice>, // todo:
+    devices: List<SimmDevice>,
     navigateToDeviceAdd: () -> Unit,
     navigateToDeviceEdit: (SimmDevice) -> Unit,
     navigateToDeviceControl: (SimmDevice) -> Unit = { print("click") },
@@ -59,8 +62,8 @@ fun DeviceSelectUi(
                 contentPadding = paddingValues,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(devices.itemCount) {
-                    devices[it]?.let { device ->
+                items(devices.count()) { id ->
+                    devices[id].let { device ->
                         DeviceCard(
                             device = device,
                             onEditClick = { navigateToDeviceEdit(device) },
@@ -69,7 +72,21 @@ fun DeviceSelectUi(
                         )
                     }
                 }
+
+                // todo:
+                // items(devices.itemCount) {
+                //     devices[it]?.let { device ->
+                //         DeviceCard(
+                //             device = device,
+                //             onEditClick = { navigateToDeviceEdit(device) },
+                //             onConnectClick = { print("onConnectClick") },
+                //             onControlClick = { navigateToDeviceControl(device) },
+                //         )
+                //     }
+                // }
             }
+
+
         }
     }
 }
