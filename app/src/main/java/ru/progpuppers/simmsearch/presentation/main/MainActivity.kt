@@ -24,9 +24,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.paging.compose.collectAsLazyPagingItems
 import dagger.hilt.android.AndroidEntryPoint
-import ru.progpuppers.simmsearch.domain.model.SimmDevice
+import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceCardItem
 import ru.progpuppers.simmsearch.presentation.DataManageUi
 import ru.progpuppers.simmsearch.presentation.SettingsUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceAddUi
@@ -96,14 +95,14 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Routes.DeviceEditUi.route) {
-                            navController.previousBackStackEntry?.savedStateHandle?.get<SimmDevice?>("device")
+                            navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")
                                 ?.let { device -> DeviceEditUi(
                                     device = device,
                                     onBackClick = { navController.popBackStack() }
                                 )}
                         }
                         composable(Routes.DeviceControlUi.route) {
-                            navController.previousBackStackEntry?.savedStateHandle?.get<SimmDevice?>("device")
+                            navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")
                                 ?.let { device -> DeviceControlUi(
                                     device = device,
                                     onBackClick = { navController.popBackStack() }
@@ -178,12 +177,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private fun navigateToDeviceEdit(navController: NavController, device: SimmDevice) {
+private fun navigateToDeviceEdit(navController: NavController, device: DeviceCardItem) {
     navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
     navController.navigate(route = Routes.DeviceEditUi.route)
 }
 
-private fun navigateToDeviceControl(navController: NavController, device: SimmDevice) {
+private fun navigateToDeviceControl(navController: NavController, device: DeviceCardItem) {
     navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
     navController.navigate(route = Routes.DeviceControlUi.route)
 }

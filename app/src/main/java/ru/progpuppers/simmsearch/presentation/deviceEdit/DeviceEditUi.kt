@@ -5,26 +5,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import ru.progpuppers.simmsearch.domain.model.SimmDevice
+import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceCardItem
 import ru.progpuppers.simmsearch.presentation.common.TopBar
 
 @Composable
 fun DeviceEditUi(
     viewModel: DeviceEditViewModel = hiltViewModel(),
-    device: SimmDevice,
+    device: DeviceCardItem,
     onBackClick: () -> Unit,
     onExtendClick: () -> Unit = { println("click") } // define it here
 ) {
+    // todo: сюда закидывается simmDevice
+    //  - есть поля редактируемые и не редактируемые
+    //  - при редктировании поля, изменения должны отправитьбся в репозиторий
+
     Scaffold(
         topBar = {
             TopBar(

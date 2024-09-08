@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.bluetooth.BluetoothClass
 import android.os.ParcelUuid
 
-typealias BluetoothDeviceFound = BthDevice
+// typealias BluetoothDeviceFound = BthDevice
 
 data class BthDevice(
     val name: String?,

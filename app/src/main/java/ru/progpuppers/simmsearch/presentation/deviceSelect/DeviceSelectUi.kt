@@ -14,7 +14,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DeviceCard
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerItemsState
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerSheet
@@ -25,10 +24,10 @@ fun DeviceSelectUi(
     viewModel: DeviceSelectViewModel,
     // todo:
     // devices: LazyPagingItems<SimmDevice>,
-    devices: List<SimmDevice>,
+    devices: List<DeviceCardItem>,
     navigateToDeviceAdd: () -> Unit,
-    navigateToDeviceEdit: (SimmDevice) -> Unit,
-    navigateToDeviceControl: (SimmDevice) -> Unit = { print("click") },
+    navigateToDeviceEdit: (DeviceCardItem) -> Unit,
+    navigateToDeviceControl: (DeviceCardItem) -> Unit = { print("click") },
     navigateToDataMange: () -> Unit = { print("click") },
     navigateToDataExplore: () -> Unit = { print("click") },
     navigateToNavigationMap: () -> Unit = { print("click") },
@@ -104,7 +103,6 @@ fun DeviceSelectUi(
         }
     }
 }
-
 
 // todo: всплывающий диалог
 // show notImplemented Dialog

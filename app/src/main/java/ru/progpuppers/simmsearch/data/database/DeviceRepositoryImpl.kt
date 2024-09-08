@@ -4,33 +4,32 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import ru.progpuppers.simmsearch.domain.model.BthDevice
-import ru.progpuppers.simmsearch.domain.model.SimmDevice
+import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 
 // todo: roomRepositoty for saved devices
 class DeviceRepositoryImpl() : DeviceRepository {
-    override val savedDevices: StateFlow<List<BthDevice>>
+    override val savedDevices: StateFlow<List<BthDeviceSaved>>
         get() = TODO("Not yet implemented")
 
 
-    override fun getAllDevices(): Flow<PagingData<SimmDevice>> {
+    override fun getAllDevices(): Flow<PagingData<BthDeviceSaved>> {
         TODO("Not yet implemented")
     }
 
-    override fun getDevices(sources: List<String>): Flow<PagingData<SimmDevice>> {
+    override fun getDevices(sources: List<String>): Flow<PagingData<BthDeviceSaved>> {
         TODO("Not yet implemented")
     }
 
-    override fun editDevice(device: SimmDevice) {
+    override fun editDevice(device: BthDeviceSaved) {
         TODO("Not yet implemented")
     }
 
-    override fun saveDevice(device: SimmDevice) {
+    override fun saveDevice(device: BthDeviceSaved) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllDevicesMutable(): MutableStateFlow<List<BthDevice>> {
+    override suspend fun getAllDevicesMutable(): MutableStateFlow<List<BthDeviceSaved>> {
         TODO("Not yet implemented")
     }
 
