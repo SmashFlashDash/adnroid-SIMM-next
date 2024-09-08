@@ -39,12 +39,6 @@ fun DeviceSelectUi(
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
-    // todo:
-    //  - переделать с статик цветов на material.colorScheme
-    //  - вариант navController в viewModel чтобы не передавать кучу методов
-    //  - пока берется flux devices нжен splash
-    //  - как увязать ui с viewModel
-
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = { DrawerSheet(uiState = uiState) }

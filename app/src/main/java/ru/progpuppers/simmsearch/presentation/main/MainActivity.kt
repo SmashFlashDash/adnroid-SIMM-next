@@ -86,12 +86,22 @@ class MainActivity : ComponentActivity() {
                             val viewModel: DeviceSelectViewModel = hiltViewModel()
                             viewModel.startScan()
                             viewModel.state.collectAsState()
-                            // val devices = viewModel.state.collectAsLazyPagingItems()
-                            // todo: доделать кард device
-                            //  - псоле активи и логики addDebvice
+                            // todo:
+                            //  - доделать DeviceCard
+                            //  - псоле логики addDevice, save to room
                             //  - добавить логику подключения
+                            //  - DeviceCard можно сделать слева от имени устройства кружком цвет статусы
+                            //      - нет куржка, не в зоне доступа
+                            //      - серый круг - можно подключиться
+                            //      - синий круг - подключен
+                            //  - при нажатии подключить о результате показывать уведомление Toast
+                            //  - перевести devices на LazyPagingItems
+                            //  - мб тут не вариант передавать devices, т.к. надо запросить permission при первом включении
+                            //  - переделать с статик цветов на material.colorScheme
+                            //  - пока берется flux devices нжен splash
+                            //
                             DeviceSelectUi(
-                                // todo: на lazy
+                                // devices = viewModel.state.collectAsLazyPagingItems(),
                                 devices = viewModel.state.collectAsState().value.scannedPairedSavedDevices,
                                 viewModel = viewModel,
                                 navigateToDeviceEdit = { device -> navigateToDeviceEdit(navController = navController, device = device) },
