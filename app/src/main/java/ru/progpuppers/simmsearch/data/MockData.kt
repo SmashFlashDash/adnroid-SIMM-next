@@ -20,7 +20,7 @@ object MockData {
     val savedBthDevices: List<BthDeviceSaved> = listOf(
         BthDeviceSaved(id = 1L, name = "Saved Device 1", address = searchedBluetoothDevices[0].address, description = "Нет описания"),
         BthDeviceSaved(id = 2L, name = "Saved Device 2", address = searchedBluetoothDevices[1].address, description = "Есть описания"),
-        BthDeviceSaved.from(searchedBluetoothDevices[2])
+        BthDeviceSaved(id = 3L, name = "Saved Device 3", address = searchedBluetoothDevices[2].address, description = "Есть описания"),
     )
 
     // val mockSavedDevices

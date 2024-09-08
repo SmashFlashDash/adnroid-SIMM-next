@@ -53,6 +53,7 @@ class DeviceSelectViewModel @Inject constructor(
                     .filter { savedDevices.contains(it) }
                     .map { device ->
                         DeviceCardItem(
+                            _roomId = device.id,
                             name = device.name,
                             address = device.address,
                             // todo: можно сделать equals и hashCode чтобы использовать containts
@@ -75,10 +76,11 @@ data class DeviceSelectUiState(
 )
 
 data class DeviceCardItem  (
+    val _roomId: Long,  // for more fast search inRoom
     val name: String,
-    val address: String,   // todo: заменить на String?
-    val isFound: Boolean = false,  // todo: to remove
+    val address: String,
+    val isFound: Boolean = false,
     val isConnected: Boolean = false,
-    val description: String = "Нет описания"
+    val description: String = "Нет описания",
 ) : Serializable {
 }

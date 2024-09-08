@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceCardItem
 import ru.progpuppers.simmsearch.presentation.common.TopBar
 
@@ -17,12 +18,15 @@ import ru.progpuppers.simmsearch.presentation.common.TopBar
 fun DeviceEditUi(
     viewModel: DeviceEditViewModel = hiltViewModel(),
     device: DeviceCardItem,
+    deviceSaved: BthDeviceSaved,
     onBackClick: () -> Unit,
     onExtendClick: () -> Unit = { println("click") } // define it here
 ) {
     // todo: сюда закидывается simmDevice
     //  - есть поля редактируемые и не редактируемые
     //  - при редктировании поля, изменения должны отправитьбся в репозиторий
+    //
+    //  - по сути для это страницы нужно подгрузить сущность из repository по
 
     Scaffold(
         topBar = {

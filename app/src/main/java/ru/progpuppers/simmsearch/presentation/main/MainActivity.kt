@@ -31,6 +31,7 @@ import ru.progpuppers.simmsearch.presentation.SettingsUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceAddUi
 import ru.progpuppers.simmsearch.presentation.deviceControl.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditUi
+import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditViewModel
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectUi
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectViewModel
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
@@ -98,8 +99,19 @@ class MainActivity : ComponentActivity() {
                             navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")
                                 ?.let { device -> DeviceEditUi(
                                     device = device,
+                                    deviceSaved = device,
                                     onBackClick = { navController.popBackStack() }
                                 )}
+
+                            // val viewModel: DeviceEditViewModel = hiltViewModel()
+                            // val device = navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device").let {  }
+                            // val deviceSaved =
+                            //     DeviceEditUi(
+                            //         viewModel = viewModel,
+                            //         device = device,
+                            //         deviceSaved = viewModel.state.collectAsState().value.scannedPairedSavedDevices,
+                            //         onBackClick = { navController.popBackStack() }
+                            //     )
                         }
                         composable(Routes.DeviceControlUi.route) {
                             navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")
