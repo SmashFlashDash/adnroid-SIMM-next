@@ -1,6 +1,7 @@
 package ru.progpuppers.simmsearch.presentation.deviceSelect
 
 import android.annotation.SuppressLint
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -53,7 +54,7 @@ class DeviceSelectViewModel @Inject constructor(
                     .filter { savedDevices.contains(it) }
                     .map { device ->
                         DeviceCardItem(
-                            _roomId = device.id,
+                            _id = device.id,
                             name = device.name,
                             address = device.address,
                             // todo: можно сделать equals и hashCode чтобы использовать containts
@@ -76,7 +77,7 @@ data class DeviceSelectUiState(
 )
 
 data class DeviceCardItem  (
-    val _roomId: Long,  // for more fast search inRoom
+    val _id: Long = 0L,
     val name: String,
     val address: String,
     val isFound: Boolean = false,

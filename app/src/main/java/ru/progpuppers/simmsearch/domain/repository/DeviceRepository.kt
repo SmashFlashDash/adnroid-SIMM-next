@@ -19,6 +19,8 @@ interface DeviceRepository {
 
     suspend fun getAllDevicesMutable(): MutableStateFlow<List<BthDeviceSaved>>
 
+    suspend fun findDeviceById(id: Long): Flow<BthDeviceSaved>
+
 
     // fun searchDevices(searchQuery: String, sources: List<String>): Flow<PagingData<SimmDevice>>
 }

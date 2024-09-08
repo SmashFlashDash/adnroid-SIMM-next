@@ -1,5 +1,6 @@
 package ru.progpuppers.simmsearch.data.database
 
+import android.content.res.Resources.NotFoundException
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,4 +36,8 @@ class DeviceRepositoryMockImpl() : DeviceRepository {
     override suspend fun getAllDevicesMutable(): MutableStateFlow<List<BthDeviceSaved>> =
         MutableStateFlow(MockData.savedBthDevices)
 
+    // todo: сделать для реального репозитория, он мб и не может вернуть null
+    override suspend fun findDeviceById(id: Long): Flow<BthDeviceSaved> =
+        flowOf(MockData.savedBthDevices.find { it.id == id } ?:
+        throw NotFoundException("device not found by id $id"))
 }

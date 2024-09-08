@@ -18,7 +18,6 @@ import ru.progpuppers.simmsearch.presentation.common.TopBar
 fun DeviceEditUi(
     viewModel: DeviceEditViewModel = hiltViewModel(),
     device: DeviceCardItem,
-    deviceSaved: BthDeviceSaved,
     onBackClick: () -> Unit,
     onExtendClick: () -> Unit = { println("click") } // define it here
 ) {
@@ -62,12 +61,13 @@ fun DeviceEditUi(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = paddingValues.calculateBottomPadding())
+                // .padding(bottom = paddingValues.calculateBottomPadding())
+                .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
         ) {
             Text("Bottom app bar padding:  $paddingValues")
             repeat(50) {
-                Text(it.toString())
+                Text(viewModel.state.deviceCardItem?.name ?: "Device not found")
             }
         }
     }

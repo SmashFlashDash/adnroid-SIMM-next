@@ -66,7 +66,8 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.DeviceSelectUi.route) {
                             val viewModel: DeviceSelectViewModel = hiltViewModel()
                             viewModel.startScan()
-                            viewModel.state.collectAsState()
+                            // todo:
+                            //  viewModel.state.collectAsState()
                             // todo:
                             //  - доделать DeviceCard
                             //  - псоле логики addDevice, save to room
@@ -99,7 +100,6 @@ class MainActivity : ComponentActivity() {
                             navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")
                                 ?.let { device -> DeviceEditUi(
                                     device = device,
-                                    deviceSaved = device,
                                     onBackClick = { navController.popBackStack() }
                                 )}
 

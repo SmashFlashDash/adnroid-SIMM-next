@@ -33,5 +33,9 @@ class DeviceRepositoryImpl() : DeviceRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun findDeviceById(id: Long): Flow<BthDeviceSaved> {
+        TODO("Not yet implemented")
+    }
+
 
 }
