@@ -23,25 +23,10 @@ class DeviceSelectViewModel @Inject constructor(
     private val bluetoothController: BluetoothController,
     private val deviceRepository: DeviceRepository,
 ) : ViewModel() {
+    // val savedDevices = deviceRepository.getAllDevices().cachedIn(viewModelScope)
 
     private val _state = MutableStateFlow(DeviceSelectUiState())
     val state = convertToUiState()
-
-    // todo:
-    //  - первичное открытие запрос на права bth
-    //  - при открытии экрана показывает запомненные устройства
-    //      устройств хранятся в бд
-    //      у них есть id, имя, какие то данные для bth, мб mac-адресс
-    //  - начинает сканирование bth показывает устройства к которым можно подключиться
-    //  - при нажатии на подключить, и успешном подключении
-    //    разблокируется кнопка управлять
-    //  - кнопка управлять перебрасываеь на активити управления устройством
-    //  - кнопка редактирования устройством перебрасывает на актвити информации об устройстве
-    //    позволяет его переименовать, или посмотреть данные о нем
-
-    // val savedDevices = deviceRepository.getAllDevices().cachedIn(viewModelScope)
-    // val savedDevices = deviceUseCases.getSavedDevices().cachedIn(viewModelScope)
-    // val savedDevicesMock = mockSavedDevices
 
     // todo: залупить
     fun startScan() = bluetoothController.startDiscovery()

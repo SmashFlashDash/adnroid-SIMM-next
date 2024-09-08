@@ -45,7 +45,8 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         enableEdgeToEdge()
         initPermissions()
-        // todo: заимплементить тему
+        // todo:
+        //  - перевести все цвета на materialColor заимплементить тему
         //  https://developer.android.com/develop/ui/views/theming/darktheme
         //  https://stackoverflow.com/questions/69186894/trigger-dark-mode-of-system-from-application-programmatically-in-android-studio
         //  https://medium.com/androiddevelopers/appcompat-v23-2-daynight-d10f90c83e94
@@ -55,32 +56,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             SimmnextTheme {
                 SetBarColor(!isSystemInDarkTheme())
-                // Surface(
-                //     // todo: Surface нужен чтобы определить разметки на все слудющие активити в нем
-                //     modifier = Modifier.fillMaxSize(),
-                //     color = MaterialTheme.colorScheme.background
-                // ) {
+
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
                         startDestination = Routes.DeviceSelectUi.route
                     ) {
-                // todo:
-                //  - лучший вариант для навигации
-                //  - сделать для дргуих экранов AppBar с навигацией назазд, доп функции
-                //  - норм варинт передавать lambda navContoller.navigate(it), а в функиця[ перадавать Route и запускать
-
-                        // todo: запомнить с какой вкладки вышли прошлый
-                        // val backStackState = navController.currentBackStackEntryAsState().value
-                        // var selectedItem by rememberSaveable {
-                        //     mutableStateOf(0)
-                        // }
-                        // selectedItem = when (backStackState?.destination?.route) {
-                        //     Route.HomeScreen.route -> 0
-                        //     Route.SearchScreen.route -> 1
-                        //     Route.BookmarkScreen.route -> 2
-                        //     else -> 0
-                        // }
 
                         composable(Routes.DeviceSelectUi.route) {
                             val viewModel: DeviceSelectViewModel = hiltViewModel()
@@ -135,7 +116,6 @@ class MainActivity : ComponentActivity() {
                             SettingsUi(navController)
                         }
                     }
-                // }
             }
         }
     }
@@ -143,7 +123,6 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun SetBarColor(isLightTheme: Boolean) {
         val barColor = MaterialTheme.colorScheme.background.toArgb()
-        // val barColor = Color.Red.toArgb()
         LaunchedEffect(true) {
             if (isLightTheme) {
                 enableEdgeToEdge(
@@ -212,3 +191,25 @@ private fun navigateToDeviceControl(navController: NavController, device: SimmDe
 private fun navigateToDeviceAdd(navController: NavController) {
     navController.navigate(route = Routes.DeviceAddUi.route)
 }
+
+// Surface(
+//     // todo: Surface нужен чтобы определить разметки на все слудющие активити в нем
+//     modifier = Modifier.fillMaxSize(),
+//     color = MaterialTheme.colorScheme.background
+// ) {
+
+// todo:
+//  - лучший вариант для навигации
+//  - сделать для дргуих экранов AppBar с навигацией назазд, доп функции
+//  - норм варинт передавать lambda navContoller.navigate(it), а в функиця[ перадавать Route и запускать
+
+// todo: запомнить с какой вкладки вышли прошлый
+// val backStackState = navController.currentBackStackEntryAsState().value
+// var selectedItem by rememberSaveable {
+//     mutableStateOf(0)
+// }
+// selectedItem = when (backStackState?.destination?.route) {
+//     Route.HomeScreen.route -> 0
+//     Route.SearchScreen.route -> 1
+//     Route.BookmarkScreen.route -> 2
+//     else -> 0

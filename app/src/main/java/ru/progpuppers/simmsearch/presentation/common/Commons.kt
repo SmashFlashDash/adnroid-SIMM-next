@@ -3,9 +3,11 @@ package ru.progpuppers.simmsearch.presentation.common
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -15,51 +17,59 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import ru.progpuppers.simmsearch.app.R
 
 
 @Composable
 fun InputIcon(
-    onClick: () -> Unit,
     icon: ImageVector,
     modifier: Modifier = Modifier,
     description: String = "No description",
-    tint: Color = MaterialTheme.colorScheme.secondary
+    tint: Color? = null,
+    onClick: () -> Unit
 ) {
     IconButton(onClick = onClick) {
-        Icon(icon, tint = tint, modifier = modifier, contentDescription = description)
+        Icon(
+            icon,
+            tint = tint ?: LocalContentColor.current,
+            modifier = modifier,
+            contentDescription = description
+        )
     }
 }
 
 @Composable
 fun TextIconButton(
     text: String,
-    iconComposable: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    tint: Color = MaterialTheme.colorScheme.secondary,
+    colors: ButtonColors = ButtonDefaults.buttonColors(
+        containerColor = Color.Transparent,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        disabledContainerColor = Color.Transparent,
+        disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+    ),
     contentPadding: PaddingValues = ButtonDefaults.TextButtonContentPadding,
     enabled: Boolean = true,
+    icon: ImageVector,
+    iconTint: Color? = null,
+    iconDescription: String = "No description",
+    iconModifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     TextButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        contentPadding = contentPadding
+        contentPadding = contentPadding,
+        colors = colors
     ) {
-        // Row(
-        //     modifier = Modifier.fillMaxWidth(),
-        //     verticalAlignment = Alignment.CenterVertically,
-        //     horizontalArrangement = Arrangement.SpaceBetween
-        // ) {
-        Text(
-            text = text,
-            color = tint
+        Text(text = text)
+        Icon(
+            modifier = iconModifier,
+            imageVector = icon,
+            contentDescription = iconDescription,
+            tint = iconTint ?: LocalContentColor.current
         )
-        iconComposable()
-
-        // }
     }
 }
 

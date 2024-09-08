@@ -23,8 +23,11 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun DrawerSheet(uiState: DrawerItemsState) {
-    ModalDrawerSheet {
+fun DrawerSheet(
+    modifier: Modifier = Modifier,
+    uiState: DrawerItemsState
+) {
+    ModalDrawerSheet(modifier = modifier) {
         Spacer(modifier = Modifier.height(24.dp))
         uiState.drawerItems.forEach { item ->
             DrawerMenuItem(imageVector = item.icon, text = item.text)
@@ -57,9 +60,9 @@ private fun DrawerMenuItem(
 sealed class DrawerItemsState(val drawerItems: List<DrawerItem>) {
     data object MenuState : DrawerItemsState(
         listOf(
-            DrawerItem(Icons.Filled.DataArray , "Manage data"),
-            DrawerItem(Icons.Filled.Analytics , "Explore data"),
-            DrawerItem(Icons.Filled.NearMe , "Navigation map"),
+            DrawerItem(Icons.Filled.DataArray, "Manage data"),
+            DrawerItem(Icons.Filled.Analytics, "Explore data"),
+            DrawerItem(Icons.Filled.NearMe, "Navigation map"),
             DrawerItem(Icons.Filled.Settings, "Settings")
         )
     )

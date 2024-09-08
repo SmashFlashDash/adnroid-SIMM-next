@@ -1,7 +1,6 @@
 package ru.progpuppers.simmsearch.presentation.deviceSelect.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,10 +15,8 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Cached
 import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,17 +28,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.data.MockData
+import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.TextIconButton
-import ru.progpuppers.simmsearch.ui.theme.Gray
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,11 +58,14 @@ fun DeviceCard(
 
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.Transparent),
+        modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(),
-        colors = CardColors(Gray, Color.Black, Color.Red, Color.Red),
+        colors = CardDefaults.cardColors(
+            MaterialTheme.colorScheme.surface,
+            MaterialTheme.colorScheme.onSurface,
+            MaterialTheme.colorScheme.surfaceContainerLow,
+            MaterialTheme.colorScheme.onSurfaceVariant,
+        ),
         shape = RoundedCornerShape(8.dp),
     ) {
         CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
@@ -75,12 +73,9 @@ fun DeviceCard(
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, top = 0.dp, end = 0.dp, bottom = 8.dp)
-                    .background(Color.Transparent)
             ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.Transparent),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -98,6 +93,7 @@ fun DeviceCard(
                     )
                     InputIcon(icon = Icons.Filled.EditNote,
                         modifier = Modifier,
+                        // tint = MaterialTheme.colorScheme.onSurface,
                         onClick = { onEditClick.invoke(device) }
                     )
                 }
@@ -123,34 +119,16 @@ fun DeviceCard(
                             text = "Подключить",
                             modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
                             contentPadding = PaddingValues(5.dp, 5.dp),
-                            iconComposable = {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                                    contentDescription = "No description",
-                                    tint = MaterialTheme.colorScheme.secondary
-                                )
-                            },
-                            // todo: здесь должна быть хурма из byh api
-                            //  вызвать коннект к коннкретному устройству
-                            //  начать крутить load icon (Icons.Filled.Cached) либо качнуть гифку
-                            //  вергнуть корутиной результат, если подключилось написать Подключено
-                            //  если нет написать всплывающее окно с статусом и вернуть в стейт Поключить
+                            icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                             onClick = { onConnectClick() }
                         )
                         TextIconButton(
                             text = "Управлять",
                             modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
                             contentPadding = PaddingValues(5.dp, 5.dp),
-                            iconComposable = {
-                                Icon(
-                                    modifier = Modifier.padding(3.dp, 0.dp, 3.dp, 0.dp).size(20.dp),
-                                    imageVector = Icons.Filled.Cached,
-                                    contentDescription = "No description",
-                                    tint = MaterialTheme.colorScheme.secondary
-                                )
-                            },
-                            enabled = false,    // todo: если передаем цвет в текст, оверрайдит дефолтноый при enabled False
-                            // todo: перейти в ui управления
+                            icon = Icons.Filled.Cached,
+                            iconModifier = Modifier.padding(3.dp, 0.dp, 3.dp, 0.dp).size(20.dp),
+                            enabled = false,
                             onClick = { onControlClick() }
                         )
                     }

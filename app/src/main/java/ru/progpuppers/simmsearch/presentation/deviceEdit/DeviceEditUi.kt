@@ -32,22 +32,22 @@ fun DeviceEditUi(
                 onExtendClick = onExtendClick
             )
         },
-        bottomBar = {
-            BottomAppBar() {
-                // CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
-                //     IconButton(onClick = { /* doSomething() */ }) {
-                //         Icon(Icons.Filled.Menu, contentDescription = "Localized description")
-                //     }
-                // }
-                // Spacer(Modifier.weight(1f, true))
-                IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
-                }
-                IconButton(onClick = { /* doSomething() */ }) {
-                    Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
-                }
-            }
-        }
+        // bottomBar = {
+        //     BottomAppBar() {
+        //         // CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
+        //         //     IconButton(onClick = { /* doSomething() */ }) {
+        //         //         Icon(Icons.Filled.Menu, contentDescription = "Localized description")
+        //         //     }
+        //         // }
+        //         // Spacer(Modifier.weight(1f, true))
+        //         IconButton(onClick = { /* doSomething() */ }) {
+        //             Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+        //         }
+        //         IconButton(onClick = { /* doSomething() */ }) {
+        //             Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+        //         }
+        //     }
+        // }
     ) { paddingValues ->
 
         // todo:
