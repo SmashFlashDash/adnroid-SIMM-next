@@ -2,6 +2,7 @@ package ru.progpuppers.simmsearch.data.bthapi
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -13,8 +14,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.serialization.json.Json
 import ru.progpuppers.simmsearch.domain.controller.BluetoothController
-import android.bluetooth.BluetoothDevice
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 
 // todo: используется для поиска новых и спаренных устройств
 // на выходе выдает BluetoothDevice который маписат в упрощенный обьект
@@ -25,10 +27,17 @@ import android.bluetooth.BluetoothDevice
 //  - на вкладук selectDevice показываем все остюда но отфильтровывыем которых нет в бд
 //    но уже во viewModel ?
 
+// todo: classic bluettoth
+//  или bluetoothble
+//  сделать так чтобы при переключении в другое приложение продолжал принимать данные
+
+// todo: серилазицию десериалзацию мб вынести в другой класс
 @SuppressLint("MissingPermission")
 class BluetoothControllerImpl(
-    private val context: Context
-): BluetoothController {
+    private val context: Context,
+    private val jsonRequestFactory: Json,
+    private val jsonResponseFactory: Json
+) : BluetoothController {
 
     private val bluetoothManager by lazy {
         context.getSystemService(BluetoothManager::class.java)
@@ -37,18 +46,18 @@ class BluetoothControllerImpl(
         bluetoothManager?.adapter
     }
 
-    private val _scannedDevices = MutableStateFlow<List<BluetoothDevice>>(emptyList())
-    override val scannedDevices: StateFlow<List<BluetoothDevice>>
+    private val _scannedDevices = MutableStateFlow<List<BthDevice>>(emptyList())
+    override val scannedDevices: StateFlow<List<BthDevice>>
         get() = _scannedDevices.asStateFlow()
 
-    private val _pairedDevices = MutableStateFlow<List<BluetoothDevice>>(emptyList())
-    override val pairedDevices: StateFlow<List<BluetoothDevice>>
+    private val _pairedDevices = MutableStateFlow<List<BthDevice>>(emptyList())
+    override val pairedDevices: StateFlow<List<BthDevice>>
         get() = _pairedDevices.asStateFlow()
 
     private val foundDeviceReceiver = FoundDeviceReceiver { device ->
         _scannedDevices.update { devices ->
             val newDevice = device
-            if(newDevice in devices) devices else devices + newDevice
+            if (newDevice in devices) devices else devices + newDevice
         }
     }
 
@@ -57,7 +66,7 @@ class BluetoothControllerImpl(
     }
 
     override fun startDiscovery() {
-        if(!hasPermission(Manifest.permission.BLUETOOTH_SCAN)) {
+        if (!hasPermission(Manifest.permission.BLUETOOTH_SCAN)) {
             return
         }
         context.registerReceiver(foundDeviceReceiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
@@ -66,7 +75,7 @@ class BluetoothControllerImpl(
     }
 
     override fun stopDiscovery() {
-        if(!hasPermission(Manifest.permission.BLUETOOTH_SCAN)) {
+        if (!hasPermission(Manifest.permission.BLUETOOTH_SCAN)) {
             return
         }
         bluetoothAdapter?.cancelDiscovery()
@@ -77,12 +86,12 @@ class BluetoothControllerImpl(
     }
 
     private fun updatePairedDevices() {
-        if(!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)) {
+        if (!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)) {
             return
         }
         bluetoothAdapter
             ?.bondedDevices
-            ?.map { it }
+            ?.map { BthDevice.from(it) }
             ?.also { devices ->
                 _pairedDevices.update { devices }
             }
@@ -91,14 +100,15 @@ class BluetoothControllerImpl(
     private fun hasPermission(permission: String): Boolean {
         return context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
     }
+
 }
 
 class FoundDeviceReceiver(
-    private val onDeviceFound: (BluetoothDevice) -> Unit
-): BroadcastReceiver() {
+    private val onDeviceFound: (BthDevice) -> Unit
+) : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        when(intent?.action) {
+        when (intent?.action) {
             BluetoothDevice.ACTION_FOUND -> {
                 val device = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     intent.getParcelableExtra(
@@ -108,7 +118,10 @@ class FoundDeviceReceiver(
                 } else {
                     intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                 }
-                device?.let(onDeviceFound)
+                device?.let {
+                    onDeviceFound(BthDevice.from(it))
+                }
+                // device?.let { BthDevice.from(it) }?.let(onDeviceFound)
             }
         }
     }

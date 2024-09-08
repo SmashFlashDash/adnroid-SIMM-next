@@ -1,16 +1,16 @@
 package ru.progpuppers.simmsearch.data.database
 
-import android.bluetooth.BluetoothDevice
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 
 // todo: roomRepositoty for saved devices
-class DeviceRepositoryImpl(): DeviceRepository {
-    override val savedDevices: StateFlow<List<BluetoothDevice>>
+class DeviceRepositoryImpl() : DeviceRepository {
+    override val savedDevices: StateFlow<List<BthDevice>>
         get() = TODO("Not yet implemented")
 
 
@@ -30,7 +30,7 @@ class DeviceRepositoryImpl(): DeviceRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllDevicesMutable(): MutableStateFlow<List<BluetoothDevice>> {
+    override suspend fun getAllDevicesMutable(): MutableStateFlow<List<BthDevice>> {
         TODO("Not yet implemented")
     }
 

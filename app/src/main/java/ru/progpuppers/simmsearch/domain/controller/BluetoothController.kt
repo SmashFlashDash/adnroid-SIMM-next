@@ -2,11 +2,11 @@ package ru.progpuppers.simmsearch.domain.controller
 
 import android.bluetooth.BluetoothDevice
 import kotlinx.coroutines.flow.StateFlow
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 
-// android.bluetooth.BluetoothDevice
 interface BluetoothController {
-    val scannedDevices: StateFlow<List<BluetoothDevice>>
-    val pairedDevices: StateFlow<List<BluetoothDevice>>
+    val scannedDevices: StateFlow<List<BthDevice>>
+    val pairedDevices: StateFlow<List<BthDevice>>
 
     fun startDiscovery()
     fun stopDiscovery()

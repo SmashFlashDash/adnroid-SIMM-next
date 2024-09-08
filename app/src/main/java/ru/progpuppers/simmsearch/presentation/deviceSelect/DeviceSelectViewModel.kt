@@ -11,15 +11,14 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import ru.progpuppers.simmsearch.data.bthapi.BthApi
 import ru.progpuppers.simmsearch.domain.controller.BluetoothController
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class DeviceSelectViewModel @Inject constructor(
-    private val bthService: BthApi,
     // private val deviceUseCases: DeviceUseCases,
     private val bluetoothController: BluetoothController,
     private val deviceRepository: DeviceRepository,
@@ -64,9 +63,8 @@ class DeviceSelectViewModel @Inject constructor(
                     .filter { savedDevices.contains(it) }
                     .map { device ->
                         SimmDevice(
-                            // todo: т.к. в моке нет name мапить в объкеты
-                            name = if (device.name == null) device.address.toString()  else device.name,
-                            address = device.address.toString(),
+                            name = if (device.name == null) device.address  else device.name,
+                            address = device.address,
                             isEnable = false,
                             isConnected = pairedDevices.contains(device),
                             description = "Нет описания"
@@ -80,8 +78,8 @@ class DeviceSelectViewModel @Inject constructor(
 }
 
 data class DeviceSelectUiState(
-    val scannedDevices: List<BluetoothDevice> = emptyList(),
-    val pairedDevices: List<BluetoothDevice> = emptyList(),
-    val savedDevices: List<BluetoothDevice> = emptyList(),
+    val scannedDevices: List<BthDevice> = emptyList(),
+    val pairedDevices: List<BthDevice> = emptyList(),
+    val savedDevices: List<BthDevice> = emptyList(),
     val scannedPairedSavedDevices: List<SimmDevice> = emptyList()
 )

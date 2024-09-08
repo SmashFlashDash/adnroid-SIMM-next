@@ -1,21 +1,21 @@
 package ru.progpuppers.simmsearch.data.database
 
-import android.bluetooth.BluetoothDevice
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOf
 import ru.progpuppers.simmsearch.data.MockData
+import ru.progpuppers.simmsearch.data.MockData.mockSavedDevices
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
-import ru.progpuppers.simmsearch.data.MockData.mockSavedDevices
 
 // todo: roomRepositoty for saved devices
-class DeviceRepositoryMockImpl(): DeviceRepository {
+class DeviceRepositoryMockImpl() : DeviceRepository {
 
-    override val savedDevices: StateFlow<List<BluetoothDevice>>
-        get() = MutableStateFlow<List<BluetoothDevice>>(MockData.savedBluetoothDevices)
+    override val savedDevices: StateFlow<List<BthDevice>>
+        get() = MutableStateFlow(MockData.savedBluetoothDevices)
 
     override fun getAllDevices(): Flow<PagingData<SimmDevice>> {
         return flowOf(PagingData.from(mockSavedDevices))
@@ -34,7 +34,7 @@ class DeviceRepositoryMockImpl(): DeviceRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllDevicesMutable(): MutableStateFlow<List<BluetoothDevice>> =
-        MutableStateFlow<List<BluetoothDevice>>(MockData.savedBluetoothDevices)
+    override suspend fun getAllDevicesMutable(): MutableStateFlow<List<BthDevice>> =
+        MutableStateFlow(MockData.savedBluetoothDevices)
 
 }

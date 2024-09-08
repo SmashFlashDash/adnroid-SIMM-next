@@ -1,20 +1,25 @@
 package ru.progpuppers.simmsearch.data.bthapi
 
-import android.bluetooth.BluetoothDevice
 import android.content.Context
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.serialization.json.Json
 import ru.progpuppers.simmsearch.data.MockData
 import ru.progpuppers.simmsearch.domain.controller.BluetoothController
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 
 // todo: implement logger
-class BluetoothControllerTestImpl(private val context: Context): BluetoothController {
+class BluetoothControllerMockImpl(
+    private val context: Context,
+    private val jsonRequestFactory: Json,
+    private val jsonResponseFactory: Json
+) : BluetoothController {
 
-    override val scannedDevices: StateFlow<List<BluetoothDevice>>
-        get() = MutableStateFlow<List<BluetoothDevice>>(MockData.searchedBluetoothDevices)
+    override val scannedDevices: StateFlow<List<BthDevice>>
+        get() = MutableStateFlow(MockData.searchedBluetoothDevices)
 
-    override val pairedDevices: StateFlow<List<BluetoothDevice>>
-        get() = MutableStateFlow<List<BluetoothDevice>>(MockData.pairedBluetoothDevices)
+    override val pairedDevices: StateFlow<List<BthDevice>>
+        get() = MutableStateFlow(MockData.pairedBluetoothDevices)
 
     override fun startDiscovery() {
         println("startDiscovery")

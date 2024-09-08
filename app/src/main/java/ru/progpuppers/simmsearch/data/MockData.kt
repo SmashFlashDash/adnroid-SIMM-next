@@ -1,7 +1,7 @@
 package ru.progpuppers.simmsearch.data
 
-import android.bluetooth.BluetoothDevice
-import org.robolectric.shadows.ShadowBluetoothDevice
+import android.os.ParcelUuid
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.model.SimmDevice
 
 object MockData {
@@ -24,19 +24,19 @@ object MockData {
         SimmDevice(name = "new device 2", address = "whatttidy", isEnable = false)
     )
 
-    val searchedBluetoothDevices: List<BluetoothDevice> = listOf(
-        ShadowBluetoothDevice.newInstance("00:10:22:33:AA:BB"),
-        ShadowBluetoothDevice.newInstance("00:11:22:33:AA:BB"),
-        ShadowBluetoothDevice.newInstance("00:12:22:33:AA:BB"),
-        ShadowBluetoothDevice.newInstance("00:13:22:33:AA:BB"),
-        ShadowBluetoothDevice.newInstance("00:14:22:33:AA:BB"),
-        ShadowBluetoothDevice.newInstance("00:15:22:33:AA:BB"),
+    val searchedBluetoothDevices: List<BthDevice> = listOf(
+        BthDevice(name = "Device 0", address = "00:10:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "Device 1", address = "00:11:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "Device 2", address = "00:12:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "Device 3", address = "00:13:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "Device 4", address = "00:14:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "Device 5", address = "00:15:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
     )
-    // todo: замапить сюда добавить на коннект
-    val pairedBluetoothDevices: List<BluetoothDevice> = listOf(
+    // todo: замапить сюда добавить на коннект, сеттеры геттеры
+    val pairedBluetoothDevices: List<BthDevice> = listOf(
         searchedBluetoothDevices[1],
     )
-    val savedBluetoothDevices: List<BluetoothDevice> = listOf(
+    val savedBluetoothDevices: List<BthDevice> = listOf(
         searchedBluetoothDevices[0],
         searchedBluetoothDevices[1],
         searchedBluetoothDevices[2],
