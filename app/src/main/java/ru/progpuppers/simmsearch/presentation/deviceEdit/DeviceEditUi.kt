@@ -17,7 +17,6 @@ import ru.progpuppers.simmsearch.presentation.common.TopBar
 @Composable
 fun DeviceEditUi(
     viewModel: DeviceEditViewModel = hiltViewModel(),
-    device: DeviceCardItem,
     onBackClick: () -> Unit,
     onExtendClick: () -> Unit = { println("click") } // define it here
 ) {

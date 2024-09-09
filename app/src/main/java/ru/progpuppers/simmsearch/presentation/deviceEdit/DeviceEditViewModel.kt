@@ -16,22 +16,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DeviceEditViewModel @Inject constructor(
-    val deviceRepository: DeviceRepository
+    val deviceRepository: DeviceRepository,
+    val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     var state by mutableStateOf(DeviceEditUiState())
 
-    init {
-        // savedStateHandle.get<DeviceCardItem>("device")?.let {
-        //     viewModelScope.launch {
-        //         deviceRepository.findDeviceById(it._id).collectLatest { device ->
-        //             state = state.copy(
-        //                 deviceCardItem = it,
-        //                 savedDevice = device
-        //             )
-        //         }
-        //     }
-        // }
+    fun initState(deviceCardItem: DeviceCardItem) {
+        viewModelScope.launch {
+            deviceRepository.findDeviceById(deviceCardItem._id).collectLatest { device ->
+                state = state.copy(
+                    deviceCardItem = deviceCardItem,
+                    savedDevice = device
+                )
+            }
+        }
     }
 
 }

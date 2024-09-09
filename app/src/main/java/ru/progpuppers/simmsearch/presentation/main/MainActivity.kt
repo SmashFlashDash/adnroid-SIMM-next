@@ -97,11 +97,17 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Routes.DeviceEditUi.route) {
-                            navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")
-                                ?.let { device -> DeviceEditUi(
-                                    device = device,
-                                    onBackClick = { navController.popBackStack() }
-                                )}
+                            val viewModel: DeviceEditViewModel = hiltViewModel()
+                            navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")?.let {
+                                // todo: это костыль для передачи данных между viewModel
+                                //  - вариант переделать на sharedViewModle или кэш persistenStorage
+                                viewModel.initState(it)
+                                DeviceEditUi(
+                                    viewModel = viewModel,
+                                    onBackClick = { navController.popBackStack() },
+                                    onExtendClick = { println("click") }
+                                )
+                            }
 
                             // val viewModel: DeviceEditViewModel = hiltViewModel()
                             // val device = navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device").let {  }
@@ -114,11 +120,12 @@ class MainActivity : ComponentActivity() {
                             //     )
                         }
                         composable(Routes.DeviceControlUi.route) {
-                            navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")
-                                ?.let { device -> DeviceControlUi(
-                                    device = device,
+                            navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")?.let {
+                                DeviceControlUi(
+                                    device = it,
                                     onBackClick = { navController.popBackStack() }
-                                )}
+                                )
+                            }
                         }
                         composable(Routes.DataManageUi.route) {
                             DataManageUi(navController)
