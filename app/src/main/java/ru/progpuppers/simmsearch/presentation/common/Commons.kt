@@ -8,6 +8,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import ru.progpuppers.simmsearch.app.R
 
@@ -50,6 +52,7 @@ fun TextIconButton(
     ),
     contentPadding: PaddingValues = ButtonDefaults.TextButtonContentPadding,
     enabled: Boolean = true,
+    textStyle: TextStyle? = null,
     icon: ImageVector,
     iconTint: Color? = null,
     iconDescription: String = "No description",
@@ -63,7 +66,10 @@ fun TextIconButton(
         contentPadding = contentPadding,
         colors = colors
     ) {
-        Text(text = text)
+        Text(
+            text = text,
+            style = textStyle ?: LocalTextStyle.current
+        )
         Icon(
             modifier = iconModifier,
             imageVector = icon,

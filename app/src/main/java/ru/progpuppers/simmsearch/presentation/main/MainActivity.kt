@@ -108,16 +108,6 @@ class MainActivity : ComponentActivity() {
                                     onExtendClick = { println("click") }
                                 )
                             }
-
-                            // val viewModel: DeviceEditViewModel = hiltViewModel()
-                            // val device = navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device").let {  }
-                            // val deviceSaved =
-                            //     DeviceEditUi(
-                            //         viewModel = viewModel,
-                            //         device = device,
-                            //         deviceSaved = viewModel.state.collectAsState().value.scannedPairedSavedDevices,
-                            //         onBackClick = { navController.popBackStack() }
-                            //     )
                         }
                         composable(Routes.DeviceControlUi.route) {
                             navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")?.let {
