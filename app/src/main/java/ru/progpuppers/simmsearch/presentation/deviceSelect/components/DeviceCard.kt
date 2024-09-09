@@ -50,7 +50,7 @@ fun DeviceCard(
     // todo: здесь нужен state
     // - если устройтсво подключено - подключить меняется на отключить, и мб цувет кнопки
     // - если подключено становится доступа кнопка управлять
-    var isEnabled by remember { mutableStateOf(true) }
+    var isEnabled by remember { mutableStateOf(device.isConnected) }
 
 
     // val context = LocalContext.current
@@ -127,7 +127,7 @@ fun DeviceCard(
                             contentPadding = PaddingValues(5.dp, 5.dp),
                             icon = Icons.Filled.Cached,
                             iconModifier = Modifier.padding(3.dp, 0.dp, 3.dp, 0.dp).size(20.dp),
-                            enabled = false,
+                            enabled = isEnabled,
                             onClick = { onControlClick() }
                         )
                     }

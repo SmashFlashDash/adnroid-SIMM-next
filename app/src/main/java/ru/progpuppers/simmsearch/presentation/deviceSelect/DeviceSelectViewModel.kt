@@ -51,7 +51,7 @@ class DeviceSelectViewModel @Inject constructor(
                     // - DeviceCardItem - для использования в deviceSelectUi
 
                     // todo: по какому полю здесь contains
-                    .filter { savedDevices.contains(it) }
+                    // .filter { savedDevices.contains(it) }
                     .map { device ->
                         DeviceCardItem(
                             _id = device.id,
