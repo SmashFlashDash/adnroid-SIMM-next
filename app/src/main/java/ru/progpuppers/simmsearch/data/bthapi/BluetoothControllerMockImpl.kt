@@ -33,4 +33,12 @@ class BluetoothControllerMockImpl(
         println("release")
     }
 
+    override fun disconnect(address: String) {
+        MockData.pairedBluetoothDevices.removeIf { it.address == address }
+    }
+
+    override fun connect(address: String) {
+        MockData.pairedBluetoothDevices.add(MockData.searchedBluetoothDevices.find { it.address == address }!!)
+    }
+
 }

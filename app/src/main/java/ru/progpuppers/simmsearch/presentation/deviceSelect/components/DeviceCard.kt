@@ -115,7 +115,7 @@ fun DeviceCard(
                         horizontalAlignment = Alignment.End
                     ) {
                         TextIconButton(
-                            text = "Подключить",
+                            text = if (isEnabled) "Отключить" else "Подключить",
                             modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
                             contentPadding = PaddingValues(5.dp, 5.dp),
                             icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,

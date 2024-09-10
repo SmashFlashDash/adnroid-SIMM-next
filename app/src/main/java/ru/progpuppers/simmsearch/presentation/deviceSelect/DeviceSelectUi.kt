@@ -80,7 +80,7 @@ fun DeviceSelectUi(
                         DeviceCard(
                             device = device,
                             onEditClick = { navigateToDeviceEdit(device) },
-                            onConnectClick = { print("onConnectClick") },
+                            onConnectClick = { viewModel.connectManage(device) },
                             onControlClick = { navigateToDeviceControl(device) },
                         )
                     }

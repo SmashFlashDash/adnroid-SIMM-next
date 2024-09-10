@@ -85,6 +85,14 @@ class BluetoothControllerImpl(
         context.unregisterReceiver(foundDeviceReceiver)
     }
 
+    override fun disconnect(address: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun connect(address: String) {
+        TODO("Not yet implemented")
+    }
+
     private fun updatePairedDevices() {
         if (!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)) {
             return

@@ -1,7 +1,6 @@
 package ru.progpuppers.simmsearch.presentation.deviceSelect
 
 import android.annotation.SuppressLint
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +24,7 @@ class DeviceSelectViewModel @Inject constructor(
     // val savedDevices = deviceRepository.getAllDevices().cachedIn(viewModelScope)
 
     private val _state = MutableStateFlow(DeviceSelectUiState())
-    val state = convertToUiState()
+    val state = updateUiState()
 
     // todo: залупить
     fun startScan() = bluetoothController.startDiscovery()
@@ -33,7 +32,7 @@ class DeviceSelectViewModel @Inject constructor(
     fun stopScan() = bluetoothController.stopDiscovery()
 
     @SuppressLint("MissingPermission")
-    private fun convertToUiState(): StateFlow<DeviceSelectUiState> {
+    private fun updateUiState(): StateFlow<DeviceSelectUiState> {
         return combine(
             bluetoothController.scannedDevices,
             bluetoothController.pairedDevices,
@@ -43,29 +42,24 @@ class DeviceSelectViewModel @Inject constructor(
             state.copy(
                 scannedDevices = scannedDevices,
                 pairedDevices = pairedDevices,
-                scannedPairedSavedDevices = savedDevices
-                    // todo: показываем только сохраненные devices
-                    // у них полюбому должен быть name который рандомно проставляется в addDeviceUi
-                    // - BthDevice объект любых блютуз устройства
-                    // - BthDeviceSaved - entity для room, сохраненные устройства
-                    // - DeviceCardItem - для использования в deviceSelectUi
-
-                    // todo: по какому полю здесь contains
-                    // .filter { savedDevices.contains(it) }
-                    .map { device ->
-                        DeviceCardItem(
-                            _id = device.id,
-                            name = device.name,
-                            address = device.address,
-                            // todo: можно сделать equals и hashCode чтобы использовать containts
-                            // isFound = scannedDevices.contains(device),
-                            isFound = scannedDevices.any{it.address == device.address},
-                            isConnected = pairedDevices.any{it.address == device.address},
-                            description =  device.description ?: "Нет описания"
-                        )
-                    }
+                scannedPairedSavedDevices = savedDevices.map { device ->
+                    DeviceCardItem(
+                        _id = device.id,
+                        name = device.name,
+                        address = device.address,
+                        isFound = scannedDevices.any { it.address == device.address },
+                        isConnected = pairedDevices.any { it.address == device.address },
+                        description = device.description ?: "Нет описания"
+                    )
+                }
             )
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _state.value)
+    }
+
+    fun connectManage(device: DeviceCardItem) {
+        if (device.isConnected) bluetoothController.disconnect(device.address)
+        else bluetoothController.connect(device.address)
+        updateUiState()
     }
 }
 
@@ -83,5 +77,4 @@ data class DeviceCardItem  (
     val isFound: Boolean = false,
     val isConnected: Boolean = false,
     val description: String = "Нет описания",
-) : Serializable {
-}
+) : Serializable

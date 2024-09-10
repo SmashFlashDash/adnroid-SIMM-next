@@ -1,6 +1,5 @@
 package ru.progpuppers.simmsearch.domain.controller
 
-import android.bluetooth.BluetoothDevice
 import kotlinx.coroutines.flow.StateFlow
 import ru.progpuppers.simmsearch.domain.model.BthDevice
 
@@ -12,4 +11,7 @@ interface BluetoothController {
     fun stopDiscovery()
 
     fun release()
+
+    fun disconnect(address: String)
+    fun connect(address: String)
 }
