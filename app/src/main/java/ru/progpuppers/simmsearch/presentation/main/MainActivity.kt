@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
                             //
                             DeviceSelectUi(
                                 // devices = viewModel.state.collectAsLazyPagingItems(),
-                                devices = viewModel.state.collectAsState().value.scannedPairedSavedDevices,
+                                // devices = viewModel.state.collectAsState().value.scannedPairedSavedDevices,
                                 viewModel = viewModel,
                                 navigateToDeviceEdit = { device -> navigateToDeviceEdit(navController = navController, device = device) },
                                 navigateToDeviceAdd = { navigateToDeviceAdd(navController = navController) },

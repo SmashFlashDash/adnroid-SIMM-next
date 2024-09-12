@@ -5,18 +5,18 @@ import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
 
 object MockData {
 
-    val searchedBluetoothDevices: MutableList<BthDevice> = mutableListOf(
+    val searchedBluetoothDevices: List<BthDevice> = listOf(
         BthDevice(name = "New Device 1", address = "00:11:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
         BthDevice(name = "New Device 2", address = "00:12:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
         BthDevice(name = "New Device 3", address = "00:13:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
         BthDevice(name = "New Device 4", address = "00:14:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
         BthDevice(name = "New Device 5", address = "00:15:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
     )
-    val pairedBluetoothDevices: MutableList<BthDevice> = mutableListOf(
+    val pairedBluetoothDevices: List<BthDevice> = listOf(
         searchedBluetoothDevices[0],
     )
     // считаем что address устройства униклаьный и не меняется
-    val savedBthDevices: MutableList<BthDeviceSaved> = mutableListOf(
+    val savedBthDevices: List<BthDeviceSaved> = listOf(
         BthDeviceSaved(id = 1L, name = "Saved Device 1", address = searchedBluetoothDevices[0].address, description = "Нет описания"),
         BthDeviceSaved(id = 2L, name = "Saved Device 2", address = searchedBluetoothDevices[1].address, description = "Есть описания"),
         BthDeviceSaved(id = 3L, name = "Saved Device 3", address = searchedBluetoothDevices[2].address, description = "Есть описания"),

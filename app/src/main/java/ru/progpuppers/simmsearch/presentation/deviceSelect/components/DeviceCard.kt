@@ -22,10 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -48,13 +44,11 @@ fun DeviceCard(
     onControlClick: () -> Unit,
 ) {
     // todo: здесь нужен state
-    // - если устройтсво подключено - подключить меняется на отключить, и мб цувет кнопки
-    // - если подключено становится доступа кнопка управлять
-    var isEnabled by remember { mutableStateOf(device.isConnected) }
+    //  - если устройтсво подключено - подключить меняется на отключить, и мб цувет кнопки
+    //  - если подключено становится доступа кнопка управлять
 
-
+    // var isEnabled by remember { mutableStateOf(device.isConnected) }
     // val context = LocalContext.current
-
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -114,8 +108,10 @@ fun DeviceCard(
                         modifier = Modifier.weight(1f),
                         horizontalAlignment = Alignment.End
                     ) {
+                        // println("draw DeviceCard name=${device.address}," +
+                        //         "\n\tisConnected=${device.isConnected},")
                         TextIconButton(
-                            text = if (isEnabled) "Отключить" else "Подключить",
+                            text = if (device.isConnected) "Отключить" else "Подключить",
                             modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
                             contentPadding = PaddingValues(5.dp, 5.dp),
                             icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
@@ -127,7 +123,7 @@ fun DeviceCard(
                             contentPadding = PaddingValues(5.dp, 5.dp),
                             icon = Icons.Filled.Cached,
                             iconModifier = Modifier.padding(3.dp, 0.dp, 3.dp, 0.dp).size(20.dp),
-                            enabled = isEnabled,
+                            enabled = device.isConnected,
                             onClick = { onControlClick() }
                         )
                     }

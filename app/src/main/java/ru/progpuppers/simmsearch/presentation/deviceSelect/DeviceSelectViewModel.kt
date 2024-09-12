@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import ru.progpuppers.simmsearch.domain.controller.BluetoothController
@@ -24,42 +23,39 @@ class DeviceSelectViewModel @Inject constructor(
     // val savedDevices = deviceRepository.getAllDevices().cachedIn(viewModelScope)
 
     private val _state = MutableStateFlow(DeviceSelectUiState())
-    val state = updateUiState()
+    @SuppressLint("MissingPermission")
+    val state = combine(
+        bluetoothController.scannedDevices,
+        bluetoothController.pairedDevices,
+        deviceRepository.savedDevices,
+        _state
+    ) { scannedDevices, pairedDevices, savedDevices, state ->
+        state.copy(
+            scannedDevices = scannedDevices,
+            pairedDevices = pairedDevices,
+            scannedPairedSavedDevices = savedDevices.map { device ->
+                DeviceCardItem(
+                    _id = device.id,
+                    name = device.name,
+                    address = device.address,
+                    isFound = scannedDevices.any { it.address == device.address },
+                    isConnected = pairedDevices.any { it.address == device.address },
+                    description = device.description ?: "Нет описания"
+                )
+            }
+        )
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _state.value)
 
     // todo: залупить
     fun startScan() = bluetoothController.startDiscovery()
 
     fun stopScan() = bluetoothController.stopDiscovery()
 
-    @SuppressLint("MissingPermission")
-    private fun updateUiState(): StateFlow<DeviceSelectUiState> {
-        return combine(
-            bluetoothController.scannedDevices,
-            bluetoothController.pairedDevices,
-            deviceRepository.savedDevices,
-            _state
-        ) { scannedDevices, pairedDevices, savedDevices, state ->
-            state.copy(
-                scannedDevices = scannedDevices,
-                pairedDevices = pairedDevices,
-                scannedPairedSavedDevices = savedDevices.map { device ->
-                    DeviceCardItem(
-                        _id = device.id,
-                        name = device.name,
-                        address = device.address,
-                        isFound = scannedDevices.any { it.address == device.address },
-                        isConnected = pairedDevices.any { it.address == device.address },
-                        description = device.description ?: "Нет описания"
-                    )
-                }
-            )
-        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _state.value)
-    }
-
     fun connectManage(device: DeviceCardItem) {
         if (device.isConnected) bluetoothController.disconnect(device.address)
         else bluetoothController.connect(device.address)
-        updateUiState()
+        // println("connectManage: ${device.name} ${device.address}")
+        // println("paredDevices: " + state.value.pairedDevices.joinToString(separator = ", ") { it.address })
     }
 }
 
