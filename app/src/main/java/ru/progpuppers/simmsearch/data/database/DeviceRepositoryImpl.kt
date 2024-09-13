@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 
@@ -34,6 +35,10 @@ class DeviceRepositoryImpl() : DeviceRepository {
     }
 
     override suspend fun findDeviceById(id: Long): Flow<BthDeviceSaved> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun save(device: BthDevice) {
         TODO("Not yet implemented")
     }
 

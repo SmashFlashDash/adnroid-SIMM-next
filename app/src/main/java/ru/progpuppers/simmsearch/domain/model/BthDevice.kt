@@ -7,7 +7,7 @@ import android.os.ParcelUuid
 // typealias BluetoothDeviceFound = BthDevice
 
 data class BthDevice(
-    val name: String?,
+    val name: String,
     val address: String,
     val type: Int,
     val uuids: Array<ParcelUuid>,

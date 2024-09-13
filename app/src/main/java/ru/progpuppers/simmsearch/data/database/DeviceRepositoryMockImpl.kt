@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOf
 import ru.progpuppers.simmsearch.data.MockData
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 
@@ -33,11 +34,16 @@ class DeviceRepositoryMockImpl() : DeviceRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllDevicesMutable(): MutableStateFlow<List<BthDeviceSaved>> =
-        MutableStateFlow(MockData.savedBthDevices)
+    override suspend fun getAllDevicesMutable(): MutableStateFlow<List<BthDeviceSaved>> {
+        TODO("Not yet implemented")
+    }
 
     // todo: сделать для реального репозитория, он мб и не может вернуть null
     override suspend fun findDeviceById(id: Long): Flow<BthDeviceSaved> =
         flowOf(MockData.savedBthDevices.find { it.id == id } ?:
         throw NotFoundException("device not found by id $id"))
+
+    override suspend fun save(device: BthDevice) {
+        TODO("Not yet implemented")
+    }
 }

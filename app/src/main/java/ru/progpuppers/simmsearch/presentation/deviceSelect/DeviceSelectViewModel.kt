@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DeviceSelectViewModel @Inject constructor(
-    // private val deviceUseCases: DeviceUseCases,
     private val bluetoothController: BluetoothController,
     private val deviceRepository: DeviceRepository,
 ) : ViewModel() {
