@@ -15,7 +15,6 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -25,10 +24,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceCardItem
 import ru.progpuppers.simmsearch.presentation.DataManageUi
 import ru.progpuppers.simmsearch.presentation.SettingsUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceAddUi
+import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceSaveUi
 import ru.progpuppers.simmsearch.presentation.deviceControl.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditUi
 import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditViewModel
@@ -94,8 +95,21 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.DeviceAddUi.route) {
                             DeviceAddUi(
                                 onBackClick = { navController.popBackStack() },
+                                onExtendClick = { TODO("Not yet implemented") },
+                                navigateToSaveDeviceUi = { device -> navigateToSaveDevice(navController = navController, device = device) }
                             )
                         }
+                        composable(Routes.DeviceSaveUi.route) {
+                            navController.previousBackStackEntry?.savedStateHandle?.get<BthDevice?>("device")?.let {
+                                DeviceSaveUi(
+                                    device = it,
+                                    onBackClick = { navController.popBackStack() },
+                                    onExtendClick = { TODO("Not yet implemented") }
+                                )
+                            }
+                        }
+                        // TODO: фэйлится на засейвленном mock так перезаписываем id, надо перейти на room
+                        // https://developer.android.com/develop/ui/compose/navigation
                         composable(Routes.DeviceEditUi.route) {
                             val viewModel: DeviceEditViewModel = hiltViewModel()
                             navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")?.let {
@@ -198,6 +212,11 @@ private fun navigateToDeviceControl(navController: NavController, device: Device
 
 private fun navigateToDeviceAdd(navController: NavController) {
     navController.navigate(route = Routes.DeviceAddUi.route)
+}
+
+private fun navigateToSaveDevice(navController: NavController, device: BthDevice) {
+    navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
+    navController.navigate(route = Routes.DeviceSaveUi.route)
 }
 
 // Surface(

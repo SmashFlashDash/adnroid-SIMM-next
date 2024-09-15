@@ -1,8 +1,6 @@
 package ru.progpuppers.simmsearch.presentation.deviceAdd
 
 import android.annotation.SuppressLint
-import android.bluetooth.BluetoothClass
-import android.os.ParcelUuid
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,7 +8,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import ru.progpuppers.simmsearch.domain.controller.BluetoothController
 import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
@@ -31,14 +28,10 @@ class DeviceAddViewModel @Inject constructor(
     ) { scannedDevices, savedDevices, state ->
         state.copy(
             scannedDevices = scannedDevices,
-            notSavedDevices = scannedDevices.filter { device -> savedDevices.any { it.address == device.address } }
+            notSavedDevices = scannedDevices.filter { device -> !savedDevices.any { it.address == device.address } }
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _state.value)
 
-    fun saveDevice(device: BthDevice) {
-        // todo: нужно ли возвращать результат что добавлен
-        viewModelScope.launch { deviceRepository.save(device) }
-    }
 }
 
 data class DeviceAddState(

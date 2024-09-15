@@ -5,7 +5,9 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.update
 import ru.progpuppers.simmsearch.data.MockData
 import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
@@ -14,11 +16,16 @@ import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 // todo: roomRepositoty for saved devices
 class DeviceRepositoryMockImpl() : DeviceRepository {
 
+    // override val savedDevices: StateFlow<List<BthDeviceSaved>>
+    //     get() = MutableStateFlow(MockData.savedBthDevices)
+
+    val _savedDevices = MutableStateFlow(MockData.savedBthDevices)
     override val savedDevices: StateFlow<List<BthDeviceSaved>>
-        get() = MutableStateFlow(MockData.savedBthDevices)
+        get() = _savedDevices.asStateFlow()
+
 
     override fun getAllDevices(): Flow<PagingData<BthDeviceSaved>> {
-        return flowOf(PagingData.from(MockData.savedBthDevices))
+        // return flowOf(PagingData.from(MockData.savedBthDevices))
         TODO("Not yet implemented")
     }
 
@@ -40,10 +47,9 @@ class DeviceRepositoryMockImpl() : DeviceRepository {
 
     // todo: сделать для реального репозитория, он мб и не может вернуть null
     override suspend fun findDeviceById(id: Long): Flow<BthDeviceSaved> =
-        flowOf(MockData.savedBthDevices.find { it.id == id } ?:
-        throw NotFoundException("device not found by id $id"))
+        flowOf(MockData.savedBthDevices.find { it.id == id } ?: throw NotFoundException("device not found by id $id"))
 
-    override suspend fun save(device: BthDevice) {
-        TODO("Not yet implemented")
+    override suspend fun save(device: BthDeviceSaved) {
+        _savedDevices.update { _savedDevices.value + device }
     }
 }

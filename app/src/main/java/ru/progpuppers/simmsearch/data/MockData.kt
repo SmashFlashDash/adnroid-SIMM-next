@@ -6,11 +6,11 @@ import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
 object MockData {
 
     val searchedBluetoothDevices: List<BthDevice> = listOf(
-        BthDevice(name = "New Device 1", address = "00:11:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
-        BthDevice(name = "New Device 2", address = "00:12:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
-        BthDevice(name = "New Device 3", address = "00:13:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
-        BthDevice(name = "New Device 4", address = "00:14:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
-        BthDevice(name = "New Device 5", address = "00:15:22:33:AA:BB", type = 1, uuids = arrayOf(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "New Device 1", address = "00:11:22:33:AA:BB", type = 1, uuids = emptyList(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "New Device 2", address = "00:12:22:33:AA:BB", type = 1, uuids = emptyList(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "New Device 3", address = "00:13:22:33:AA:BB", type = 1, uuids = emptyList(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "New Device 4", address = "00:14:22:33:AA:BB", type = 1, uuids = emptyList(), bluetoothClass = null, bondState = 2),
+        BthDevice(name = "New Device 5", address = "00:15:22:33:AA:BB", type = 1, uuids = emptyList(), bluetoothClass = null, bondState = 2),
     )
     val pairedBluetoothDevices: List<BthDevice> = listOf(
         searchedBluetoothDevices[0],

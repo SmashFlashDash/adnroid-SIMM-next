@@ -35,7 +35,7 @@ val tertiaryContainerLight = Color(0xFFFFFFFF)
 val onTertiaryContainerLight = Color(0xFF575859)
 
 val errorLight = Color(0xFFBA1A1A)
-val onErrorLight = Color(0xFFFFFFFF)
+val onErrorLight = Color(0xFF000000)
 val errorContainerLight = Color(0xFFFFDAD6)
 val onErrorContainerLight = Color(0xFF410002)
 

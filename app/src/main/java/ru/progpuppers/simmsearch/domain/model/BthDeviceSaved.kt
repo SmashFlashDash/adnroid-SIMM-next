@@ -11,7 +11,7 @@ data class BthDeviceSaved(
     @ColumnInfo("name") val name: String,
     @ColumnInfo("address") val address: String,
     @ColumnInfo("description") val description: String?
-): Serializable {
+) : Serializable {
 
     // companion object {
     //     fun from(device: BthDevice, description: String? = null): BthDeviceSaved = BthDeviceSaved(
@@ -25,5 +25,17 @@ data class BthDeviceSaved(
     //         // bluetoothClass = device.bluetoothClass,
     //         // bondState = device.bondState,
     //     )
+    // }
+
+    // todo: мапить в всплывающем диалоговом окне
+    // companion object {
+    //     fun of(device: BthDevice): BthDeviceSaved {
+    //         return BthDeviceSaved(
+    //             id = 0L,
+    //             name = device.name,
+    //             address = device.address,
+    //             description = device.description
+    //         )
+    //     }
     // }
 }

@@ -99,7 +99,7 @@ class BluetoothControllerImpl(
         }
         bluetoothAdapter
             ?.bondedDevices
-            ?.map { BthDevice.from(it) }
+            ?.map { BthDevice.of(it) }
             ?.also { devices ->
                 _pairedDevices.update { devices }
             }
@@ -127,7 +127,7 @@ class FoundDeviceReceiver(
                     intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                 }
                 device?.let {
-                    onDeviceFound(BthDevice.from(it))
+                    onDeviceFound(BthDevice.of(it))
                 }
                 // device?.let { BthDevice.from(it) }?.let(onDeviceFound)
             }

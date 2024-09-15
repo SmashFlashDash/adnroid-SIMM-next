@@ -3,6 +3,7 @@ package ru.progpuppers.simmsearch.presentation.main
 sealed class Routes(val route: String) {
     object DeviceSelectUi : Routes("device_select")
     object DeviceAddUi : Routes("device_add")
+    object DeviceSaveUi : Routes("device_save")
     object DeviceControlUi : Routes("device_control")
     object DeviceEditUi : Routes("device_manage")
     object SettingsUi : Routes("settings")

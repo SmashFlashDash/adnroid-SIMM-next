@@ -1,36 +1,58 @@
 package ru.progpuppers.simmsearch.presentation.deviceAdd
 
+import android.annotation.SuppressLint
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.os.ParcelUuid
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ru.progpuppers.simmsearch.domain.model.BthDevice
+import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.TopBar
-import ru.progpuppers.simmsearch.presentation.deviceAdd.components.DeviceAddCard
+import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
+import java.util.UUID
 
 @Composable
 fun DeviceAddUi(
     viewModel: DeviceAddViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
-    onExtendClick: () -> Unit = { println("click") } // define it here
+    onExtendClick: () -> Unit,
+    navigateToSaveDeviceUi: (BthDevice) -> Unit
 ) {
-    // todo: сюда передвавать devices и запускать серчинг bth
-    //  сделать карочтоку нового устройства
     // todo: добавить крутилку кода идет поиск устройств
-    // todo: LazyList updationg from viewModel
-    // todo: здесб тоже показываем card с именами устройства и киким-то инофо, кнопкой добавить
 
     val state by viewModel.state.collectAsState()
 
     Scaffold(
         topBar = {
             TopBar(
+                title = "Устройства по близости",
                 onBackClick = onBackClick,
                 onExtendClick = onExtendClick
             )
@@ -49,10 +71,134 @@ fun DeviceAddUi(
                 state.notSavedDevices[id].let { device ->
                     DeviceAddCard(
                         device = device,
-                        onAddClick = { viewModel.saveDevice(device) }
+                        routeToSaveDeviceUi = navigateToSaveDeviceUi
                     )
                 }
             }
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DeviceAddCard(
+    modifier: Modifier = Modifier,
+    device: BthDevice,
+    routeToSaveDeviceUi: (BthDevice) -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(),
+        colors = CardDefaults.cardColors(
+            MaterialTheme.colorScheme.surface,
+            MaterialTheme.colorScheme.onSurface,
+            MaterialTheme.colorScheme.surfaceContainerLow,
+            MaterialTheme.colorScheme.onSurfaceVariant,
+        ),
+        shape = RoundedCornerShape(8.dp),
+    ) {
+        CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, top = 0.dp, end = 0.dp, bottom = 8.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = device.name,
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.titleMedium,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp, vertical = 0.dp)
+                            .weight(1f)
+                            .align(Alignment.CenterVertically),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    InputIcon(icon = Icons.Filled.Add,
+                        modifier = Modifier,
+                        onClick = { routeToSaveDeviceUi.invoke(device) }
+                    )
+                }
+                PropertyRow(name = "Address", value = device.address)
+                PropertyRow(name = "Uuid", value = if (device.uuids.isEmpty())
+                    "Неизвестно" else device.uuids.joinToString(separator = ", ") { it.toString() })
+                PropertyRow(
+                    name = "Bluetooth class",
+                    value = device.bluetoothClass?.toString() ?: "Неизвестно")
+                PropertyRow(name = "Type", value = device.type.toString())
+                PropertyRow(name = "Bond state", value = device.bondState.toString())
+            }
+        }
+    }
+}
+
+@Composable
+fun PropertyRow(
+    modifier: Modifier = Modifier,
+    name: String,
+    value: String
+) {
+    Row(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = "$name:",
+            modifier = Modifier.padding(start = 8.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis,
+        )
+        Text(
+            text = value,
+            modifier = Modifier.padding(start = 8.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
+}
+
+
+@SuppressLint("UnrememberedMutableState")
+@Preview(showBackground = true)
+@Composable
+fun DeviceCardPreview() {
+    SimmnextTheme(dynamicColor = false) {
+        DeviceAddCard(
+            device = BthDevice(
+                name = "New Device 1",
+                address = "00:11:22:33:AA:BB",
+                type = 1,
+                uuids = listOf(ParcelUuid(UUID.randomUUID())),
+                bluetoothClass = null,
+                bondState = 2
+            ),
+            routeToSaveDeviceUi = {}
+        )
+    }
+}
+
+@SuppressLint("UnrememberedMutableState")
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun DeviceCardPreviewNight() {
+    SimmnextTheme(dynamicColor = false) {
+        DeviceAddCard(
+            device = BthDevice(
+                name = "New Device 1",
+                address = "00:11:22:33:AA:BB",
+                type = 1,
+                uuids = emptyList(),
+                bluetoothClass = null,
+                bondState = 2
+            ),
+            routeToSaveDeviceUi = {}
+        )
     }
 }
