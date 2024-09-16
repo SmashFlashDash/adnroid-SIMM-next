@@ -1,28 +1,17 @@
 package ru.progpuppers.simmsearch.domain.repository
 
-import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
+import ru.progpuppers.simmsearch.domain.model.Device
 
 interface DeviceRepository {
-    val savedDevices: StateFlow<List<BthDeviceSaved>>
 
-    fun getAllDevices(): Flow<PagingData<BthDeviceSaved>>
+    fun findAllDevices(): Flow<List<Device>>
 
-    fun getDevices(sources: List<String>): Flow<PagingData<BthDeviceSaved>>
+    fun findDeviceById(id: Long): Flow<Device>
 
-    fun editDevice(device: BthDeviceSaved)
+    suspend fun save(device: Device)
 
-    fun saveDevice(device: BthDeviceSaved)
-
-    suspend fun getAllDevicesMutable(): MutableStateFlow<List<BthDeviceSaved>>
-
-    suspend fun findDeviceById(id: Long): Flow<BthDeviceSaved>
-
-    suspend fun save(device: BthDeviceSaved)
-
+    suspend fun update(device: Device)
 
     // fun searchDevices(searchQuery: String, sources: List<String>): Flow<PagingData<SimmDevice>>
 }

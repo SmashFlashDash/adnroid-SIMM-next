@@ -25,11 +25,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.progpuppers.simmsearch.domain.model.BthDevice
+import ru.progpuppers.simmsearch.domain.model.Device
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceCardItem
 import ru.progpuppers.simmsearch.presentation.DataManageUi
 import ru.progpuppers.simmsearch.presentation.SettingsUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceAddUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceSaveUi
+import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceSaveViewModel
 import ru.progpuppers.simmsearch.presentation.deviceControl.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditUi
 import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditViewModel
@@ -100,9 +102,9 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Routes.DeviceSaveUi.route) {
-                            navController.previousBackStackEntry?.savedStateHandle?.get<BthDevice?>("device")?.let {
+                            navController.previousBackStackEntry?.savedStateHandle?.get<BthDevice?>("device")?.let { device ->
                                 DeviceSaveUi(
-                                    device = it,
+                                    viewModel = hiltViewModel<DeviceSaveViewModel, DeviceSaveViewModel.DeviceSaveViewModelFactory> { it.create(device = device) },
                                     onBackClick = { navController.popBackStack() },
                                     onExtendClick = { TODO("Not yet implemented") }
                                 )
@@ -111,13 +113,9 @@ class MainActivity : ComponentActivity() {
                         // TODO: фэйлится на засейвленном mock так перезаписываем id, надо перейти на room
                         // https://developer.android.com/develop/ui/compose/navigation
                         composable(Routes.DeviceEditUi.route) {
-                            val viewModel: DeviceEditViewModel = hiltViewModel()
-                            navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")?.let {
-                                // todo: это костыль для передачи данных между viewModel
-                                //  - вариант переделать на sharedViewModle или кэш persistenStorage
-                                viewModel.initState(it)
+                            navController.previousBackStackEntry?.savedStateHandle?.get<Device?>("device")?.let { device ->
                                 DeviceEditUi(
-                                    viewModel = viewModel,
+                                    viewModel = hiltViewModel<DeviceEditViewModel, DeviceEditViewModel.DeviceEditViewModelFactory> { it.create(device = device) },
                                     onBackClick = { navController.popBackStack() },
                                     onExtendClick = { println("click") }
                                 )
@@ -200,7 +198,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private fun navigateToDeviceEdit(navController: NavController, device: DeviceCardItem) {
+private fun navigateToDeviceEdit(navController: NavController, device: Device) {
     navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
     navController.navigate(route = Routes.DeviceEditUi.route)
 }

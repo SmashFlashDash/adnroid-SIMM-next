@@ -34,7 +34,6 @@ import ru.progpuppers.simmsearch.presentation.common.TopBar
 @Composable
 fun DeviceSaveUi(
     viewModel: DeviceSaveViewModel = hiltViewModel(),
-    device: BthDevice,
     onBackClick: () -> Unit,
     onExtendClick: () -> Unit,
 ) {
@@ -44,8 +43,7 @@ fun DeviceSaveUi(
     // todo: LazyList updationg from viewModel
     // todo: здесб тоже показываем card с именами устройства и киким-то инофо, кнопкой добавить
 
-    val state = viewModel.state
-    state.value = BthDeviceSaveState.of(device)
+    val state by viewModel.state
 
     Scaffold(
         topBar = {
@@ -66,12 +64,12 @@ fun DeviceSaveUi(
             PropertyEditRow(
                 modifier = Modifier.fillMaxWidth(),
                 name = "Имя",
-                valueState = state.value.name
+                valueState = state.name
             )
             PropertyEditRow(
                 modifier = Modifier.fillMaxWidth(),
                 name = "Описание",
-                valueState = state.value.description
+                valueState = state.description
             )
 
 

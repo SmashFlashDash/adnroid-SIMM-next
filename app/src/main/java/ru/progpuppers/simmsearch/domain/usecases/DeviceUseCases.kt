@@ -2,8 +2,8 @@ package ru.progpuppers.simmsearch.domain.usecases
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
-import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceCardItem
+import ru.progpuppers.simmsearch.data.database.DeviceEntity
+import ru.progpuppers.simmsearch.domain.model.Device
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 
 data class DeviceUseCases(
@@ -14,7 +14,7 @@ data class DeviceUseCases(
 class GetDevices(
     private val deviceRepository: DeviceRepository
 ) {
-    operator fun invoke(): Flow<PagingData<BthDeviceSaved>> {
-        return deviceRepository.getAllDevices()
-    }
+    // operator fun invoke(): Flow<PagingData<Device>> {
+    //     return deviceRepository.findAllDevices()
+    // }
 }

@@ -1,7 +1,16 @@
 package ru.progpuppers.simmsearch.data
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import ru.progpuppers.simmsearch.domain.model.BthDevice
-import ru.progpuppers.simmsearch.domain.model.BthDeviceSaved
+import ru.progpuppers.simmsearch.data.database.DeviceEntity
+import ru.progpuppers.simmsearch.data.database.DeviceRepositoryImpl
+import ru.progpuppers.simmsearch.domain.model.toDevice
 
 object MockData {
 
@@ -16,11 +25,24 @@ object MockData {
         searchedBluetoothDevices[0],
     )
     // считаем что address устройства униклаьный и не меняется
-    val savedBthDevices: List<BthDeviceSaved> = listOf(
-        BthDeviceSaved(id = 1L, name = "Saved Device 1", address = searchedBluetoothDevices[0].address, description = "Нет описания"),
-        BthDeviceSaved(id = 2L, name = "Saved Device 2", address = searchedBluetoothDevices[1].address, description = "Есть описания"),
-        BthDeviceSaved(id = 3L, name = "Saved Device 3", address = searchedBluetoothDevices[2].address, description = "Есть описания"),
+    val savedBthDevices: List<DeviceEntity> = listOf(
+        DeviceEntity(id = 1L, name = "Saved Device 1", address = searchedBluetoothDevices[0].address, description = "Нет описания"),
+        DeviceEntity(id = 2L, name = "Saved Device 2", address = searchedBluetoothDevices[1].address, description = "Есть описания"),
+        DeviceEntity(id = 3L, name = "Saved Device 3", address = searchedBluetoothDevices[2].address, description = "Есть описания"),
     )
+
+    fun initToDeviceRepository(repository: DeviceRepositoryImpl) {
+        // val myCoroutineScope = CoroutineScope(Dispatchers.Main)
+        runBlocking {
+            // val savedDevices = repository.findAllDevices().stateIn(myCoroutineScope).value
+            val savedDevices = repository.findAllDevices().first()
+            if (savedDevices.isEmpty()) {
+                repository.save(savedBthDevices[0].toDevice())
+                repository.save(savedBthDevices[1].toDevice())
+                repository.save(savedBthDevices[2].toDevice())
+            }
+        }
+    }
 
     // val mockSavedDevices
     //     get() = listOf(

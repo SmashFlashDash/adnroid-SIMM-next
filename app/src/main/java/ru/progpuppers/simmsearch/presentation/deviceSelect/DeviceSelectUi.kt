@@ -16,6 +16,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import ru.progpuppers.simmsearch.domain.model.Device
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DeviceCard
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerItemsState
 import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerSheet
@@ -27,7 +28,7 @@ fun DeviceSelectUi(
     // todo:
     // devices: LazyPagingItems<SimmDevice>,
     navigateToDeviceAdd: () -> Unit,
-    navigateToDeviceEdit: (DeviceCardItem) -> Unit,
+    navigateToDeviceEdit: (Device) -> Unit,
     navigateToDeviceControl: (DeviceCardItem) -> Unit = { print("click") },
     navigateToDataMange: () -> Unit = { print("click") },
     navigateToDataExplore: () -> Unit = { print("click") },
@@ -84,7 +85,7 @@ fun DeviceSelectUi(
                     state.scannedPairedSavedDevices[id].let { device ->
                         DeviceCard(
                             device = device,
-                            onEditClick = { navigateToDeviceEdit(device) },
+                            onEditClick = { navigateToDeviceEdit(device.savedDevice) },
                             onConnectClick = { viewModel.connectManage(device) },
                             onControlClick = { navigateToDeviceControl(device) },
                         )

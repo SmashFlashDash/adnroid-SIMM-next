@@ -57,9 +57,9 @@ fun DeviceEditUi(
                 .verticalScroll(rememberScrollState())
         ) {
             // карточки spaceBetwwen [Black Text  ---  Gray editable ButtonIcon]
-            EditableRow("Имя устройства", viewModel.state.savedDevice?.name)
-            NotEditableRow("Bluetooth адрес", viewModel.state.savedDevice?.address)
-            EditableRow("Описание", viewModel.state.savedDevice?.description)
+            EditableRow("Имя устройства", viewModel.state.name)
+            NotEditableRow("Bluetooth адрес", viewModel.state.address)
+            EditableRow("Описание", viewModel.state.description)
         }
     }
 }

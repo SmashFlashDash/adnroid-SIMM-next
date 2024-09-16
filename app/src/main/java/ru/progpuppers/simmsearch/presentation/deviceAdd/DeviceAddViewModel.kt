@@ -13,6 +13,7 @@ import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 import javax.inject.Inject
 
+
 @HiltViewModel
 class DeviceAddViewModel @Inject constructor(
     private val bluetoothController: BluetoothController,
@@ -23,11 +24,10 @@ class DeviceAddViewModel @Inject constructor(
     @SuppressLint("MissingPermission")
     val state = combine(
         bluetoothController.scannedDevices,
-        deviceRepository.savedDevices,
+        deviceRepository.findAllDevices(),
         _state
     ) { scannedDevices, savedDevices, state ->
         state.copy(
-            scannedDevices = scannedDevices,
             notSavedDevices = scannedDevices.filter { device -> !savedDevices.any { it.address == device.address } }
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _state.value)
@@ -35,6 +35,5 @@ class DeviceAddViewModel @Inject constructor(
 }
 
 data class DeviceAddState(
-    val scannedDevices: List<BthDevice> = emptyList(),
     val notSavedDevices: List<BthDevice> = emptyList(),
 )

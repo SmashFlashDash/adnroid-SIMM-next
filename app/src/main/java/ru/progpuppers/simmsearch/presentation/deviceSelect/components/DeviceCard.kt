@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ru.progpuppers.simmsearch.domain.model.Device
 import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceCardItem
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.TextIconButton
@@ -139,9 +140,7 @@ fun DeviceCardPreview() {
     SimmnextTheme(dynamicColor = false) {
         DeviceCard(
             device = DeviceCardItem(
-                name = "Device name",
-                address = "whatttidy",
-                description = "Описание устройства"
+                savedDevice = Device(name = "Device name",address = "whatttidy",description = "Описание устройства"),
             ),
             onEditClick = { },
             onConnectClick = { },
@@ -157,9 +156,7 @@ fun DeviceCardPreviewNight() {
     SimmnextTheme(dynamicColor = false) {
         DeviceCard(
             device = DeviceCardItem(
-                name = "Device name",
-                address = "whatttidy",
-                description = "Описание устройства"
+                savedDevice = Device(name = "Device name",address = "whatttidy",description = "Описание устройства"),
             ),
             onEditClick = { },
             onConnectClick = { },

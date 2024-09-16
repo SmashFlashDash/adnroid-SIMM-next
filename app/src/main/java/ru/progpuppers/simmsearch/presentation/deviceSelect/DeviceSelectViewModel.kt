@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import ru.progpuppers.simmsearch.domain.controller.BluetoothController
 import ru.progpuppers.simmsearch.domain.model.BthDevice
+import ru.progpuppers.simmsearch.domain.model.Device
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 import java.io.Serializable
 import javax.inject.Inject
@@ -19,27 +20,23 @@ class DeviceSelectViewModel @Inject constructor(
     private val bluetoothController: BluetoothController,
     private val deviceRepository: DeviceRepository,
 ) : ViewModel() {
-    // val savedDevices = deviceRepository.getAllDevices().cachedIn(viewModelScope)
 
     private val _state = MutableStateFlow(DeviceSelectUiState())
     @SuppressLint("MissingPermission")
     val state = combine(
         bluetoothController.scannedDevices,
         bluetoothController.pairedDevices,
-        deviceRepository.savedDevices,
+        // todo: SharingStarted
+        deviceRepository.findAllDevices().stateIn(viewModelScope, SharingStarted.Eagerly, emptyList()),
+        // deviceRepository.findAllDevices().stateIn(viewModelScope,  SharingStarted.WhileSubscribed(5000), emptyList()),
         _state
     ) { scannedDevices, pairedDevices, savedDevices, state ->
         state.copy(
-            scannedDevices = scannedDevices,
-            pairedDevices = pairedDevices,
             scannedPairedSavedDevices = savedDevices.map { device ->
                 DeviceCardItem(
-                    _id = device.id,
-                    name = device.name,
-                    address = device.address,
+                    savedDevice = device,
                     isFound = scannedDevices.any { it.address == device.address },
-                    isConnected = pairedDevices.any { it.address == device.address },
-                    description = device.description ?: "Нет описания"
+                    isConnected = pairedDevices.any { it.address == device.address }
                 )
             }
         )
@@ -59,17 +56,15 @@ class DeviceSelectViewModel @Inject constructor(
 }
 
 data class DeviceSelectUiState(
-    val scannedDevices: List<BthDevice> = emptyList(),
-    val pairedDevices: List<BthDevice> = emptyList(),
-    val savedDevices: List<BthDevice> = emptyList(),
     val scannedPairedSavedDevices: List<DeviceCardItem> = emptyList()
 )
 
 data class DeviceCardItem  (
-    val _id: Long = 0L,
-    val name: String,
-    val address: String,
+    val savedDevice: Device,
     val isFound: Boolean = false,
-    val isConnected: Boolean = false,
-    val description: String = "Нет описания",
-) : Serializable
+    val isConnected: Boolean = false
+) : Serializable {
+    val name: String = savedDevice.name
+    val address: String = savedDevice.address
+    val description: String = savedDevice.description ?: "Нет описания"
+}
