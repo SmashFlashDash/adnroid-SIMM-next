@@ -18,4 +18,11 @@
     <string name="icon_send_description">Icon audio record</string>
 
     <string name="user_profile_pic_description">User profile picture</string>
+
+    <string name="DeviceSearchUi_TopBar_title">Устройства по близости</string>
+    <string name="DeviceSearchUi_Row_ValueDefault">Неизвестно</string>
+    <string name="DeviceSearchUi_AdressRow">Адрес</string>
+    <string name="DeviceSearchUi_BluetoothClass">Класс</string>
+    <string name="DeviceSearchUi_Type">Тип</string>
+    <string name="DeviceSearchUi_BondState">Состояние</string>
 </resources>

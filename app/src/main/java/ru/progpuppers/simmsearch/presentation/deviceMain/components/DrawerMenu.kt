@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.presentation.deviceSelect.components
+package ru.progpuppers.simmsearch.presentation.deviceMain.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

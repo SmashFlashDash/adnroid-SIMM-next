@@ -26,17 +26,17 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.model.Device
-import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceCardItem
+import ru.progpuppers.simmsearch.presentation.deviceMain.DeviceCardItem
 import ru.progpuppers.simmsearch.presentation.DataManageUi
 import ru.progpuppers.simmsearch.presentation.SettingsUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceAddUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceSaveUi
 import ru.progpuppers.simmsearch.presentation.deviceAdd.DeviceSaveViewModel
-import ru.progpuppers.simmsearch.presentation.deviceControl.DeviceControlUi
+import ru.progpuppers.simmsearch.presentation.deviceExchange.DeviceControlUi
 import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditUi
 import ru.progpuppers.simmsearch.presentation.deviceEdit.DeviceEditViewModel
-import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectUi
-import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceSelectViewModel
+import ru.progpuppers.simmsearch.presentation.deviceMain.DeviceSelectUi
+import ru.progpuppers.simmsearch.presentation.deviceMain.DeviceSelectViewModel
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
 
 @AndroidEntryPoint
@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.DeviceAddUi.route) {
                             DeviceAddUi(
                                 onBackClick = { navController.popBackStack() },
-                                onExtendClick = { TODO("Not yet implemented") },
+                                onExtendClick = { /*TODO("Not yet implemented")*/ },
                                 navigateToSaveDeviceUi = { device -> navigateToSaveDevice(navController = navController, device = device) }
                             )
                         }
@@ -106,12 +106,10 @@ class MainActivity : ComponentActivity() {
                                 DeviceSaveUi(
                                     viewModel = hiltViewModel<DeviceSaveViewModel, DeviceSaveViewModel.DeviceSaveViewModelFactory> { it.create(device = device) },
                                     onBackClick = { navController.popBackStack() },
-                                    onExtendClick = { TODO("Not yet implemented") }
+                                    onExtendClick = { /*TODO("Not yet implemented")*/ }
                                 )
                             }
                         }
-                        // TODO: фэйлится на засейвленном mock так перезаписываем id, надо перейти на room
-                        // https://developer.android.com/develop/ui/compose/navigation
                         composable(Routes.DeviceEditUi.route) {
                             navController.previousBackStackEntry?.savedStateHandle?.get<Device?>("Device")?.let { device ->
                                 DeviceEditUi(

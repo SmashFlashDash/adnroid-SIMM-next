@@ -33,15 +33,13 @@ fun TopBar(
         navigationIcon = {
             InputIcon(
                 onClick = onBackClick,
-                icon = Icons.AutoMirrored.Filled.ArrowBack,
-                description = "navigation back"
+                icon = Icons.AutoMirrored.Filled.ArrowBack
             )
         },
         actions = {
             InputIcon(
                 onClick = onExtendClick,
-                icon = Icons.Filled.MoreVert,
-                description = "extend"
+                icon = Icons.Filled.MoreVert
             )
         },
         title = {

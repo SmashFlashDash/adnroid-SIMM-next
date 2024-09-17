@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.presentation.deviceSelect.components
+package ru.progpuppers.simmsearch.presentation.deviceMain.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -28,16 +28,14 @@ fun TopBarDrawer(
         navigationIcon = {
             InputIcon(
                 onClick = onMenuIconClick,
-                icon = Icons.Filled.Menu,
-                description = "navigation menu"
+                icon = Icons.Filled.Menu
             )
             Color.Gray
         },
         actions = {
             InputIcon(
                 onClick = { onAddIconClick() },
-                icon = Icons.Filled.Add,
-                description = "add device"
+                icon = Icons.Filled.Add
             )
         },
         title = { }

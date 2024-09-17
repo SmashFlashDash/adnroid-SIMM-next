@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.presentation.deviceSelect
+package ru.progpuppers.simmsearch.presentation.deviceMain
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,10 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import ru.progpuppers.simmsearch.domain.model.Device
-import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DeviceCard
-import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerItemsState
-import ru.progpuppers.simmsearch.presentation.deviceSelect.components.DrawerSheet
-import ru.progpuppers.simmsearch.presentation.deviceSelect.components.TopBarDrawer
+import ru.progpuppers.simmsearch.presentation.deviceMain.components.DeviceCard
+import ru.progpuppers.simmsearch.presentation.deviceMain.components.DrawerItemsState
+import ru.progpuppers.simmsearch.presentation.deviceMain.components.DrawerSheet
+import ru.progpuppers.simmsearch.presentation.deviceMain.components.TopBarDrawer
 
 @Composable
 fun DeviceSelectUi(

@@ -71,7 +71,7 @@ fun DeviceEditUi(
     Scaffold(
         topBar = {
             TopBar(
-                title = "Управление устройством",
+                title = "Информация об устройстве",
                 onBackClick = onBackClick,
                 onExtendClick = onExtendClick
             )

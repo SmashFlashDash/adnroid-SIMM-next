@@ -18,4 +18,14 @@
     <string name="icon_send_description">Icon audio record</string>
 
     <string name="user_profile_pic_description">User profile picture</string>
+
+    <!--stringResource(R.string.DeviceSearchUi_BondState)-->
+    <!-- DeviceSearchUi.kt    -->
+    <string name="DeviceSearchUi_TopBar_title">Near by devices</string>
+    <string name="DeviceSearchUi_Row_ValueDefault">Unknown</string>
+    <string name="DeviceSearchUi_AdressRow">Address</string>
+    <string name="DeviceSearchUi_UuidRow" translatable="false">Uuid</string>
+    <string name="DeviceSearchUi_BluetoothClass">Bluetooth</string>
+    <string name="DeviceSearchUi_Type">Type</string>
+    <string name="DeviceSearchUi_BondState">Bond state</string>
 </resources>

@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.presentation.deviceSelect.components
+package ru.progpuppers.simmsearch.presentation.deviceMain.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Arrangement
@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.progpuppers.simmsearch.domain.model.Device
-import ru.progpuppers.simmsearch.presentation.deviceSelect.DeviceCardItem
+import ru.progpuppers.simmsearch.presentation.deviceMain.DeviceCardItem
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.TextIconButton
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme

@@ -1,10 +1,10 @@
-package ru.progpuppers.simmsearch.presentation.deviceControl
+package ru.progpuppers.simmsearch.presentation.deviceExchange
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DeviceControlViewModel @Inject constructor() : ViewModel() {
+class DeviceExchangeViewModel @Inject constructor() : ViewModel() {
 
 }

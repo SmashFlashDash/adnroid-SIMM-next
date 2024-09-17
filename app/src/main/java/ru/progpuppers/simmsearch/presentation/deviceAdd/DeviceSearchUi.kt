@@ -26,12 +26,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ru.progpuppers.simmsearch.app.R
 import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.presentation.common.InputIcon
 import ru.progpuppers.simmsearch.presentation.common.TopBar
@@ -52,7 +54,7 @@ fun DeviceAddUi(
     Scaffold(
         topBar = {
             TopBar(
-                title = "Устройства по близости",
+                title = stringResource(R.string.DeviceSearchUi_TopBar_title),
                 onBackClick = onBackClick,
                 onExtendClick = onExtendClick
             )
@@ -125,14 +127,16 @@ fun DeviceAddCard(
                         onClick = { routeToSaveDeviceUi.invoke(device) }
                     )
                 }
-                PropertyRow(name = "Address", value = device.address)
-                PropertyRow(name = "Uuid", value = if (device.uuids.isEmpty())
-                    "Неизвестно" else device.uuids.joinToString(separator = ", ") { it.toString() })
+                PropertyRow(name = stringResource(R.string.DeviceSearchUi_AdressRow), value = device.address)
+                PropertyRow(name = stringResource(R.string.DeviceSearchUi_UuidRow), value =
+                if (device.uuids.isEmpty())
+                    stringResource(R.string.DeviceSearchUi_Row_ValueDefault)
+                    else device.uuids.joinToString(separator = ", ") { it.toString() })
                 PropertyRow(
-                    name = "Bluetooth class",
-                    value = device.bluetoothClass?.toString() ?: "Неизвестно")
-                PropertyRow(name = "Type", value = device.type.toString())
-                PropertyRow(name = "Bond state", value = device.bondState.toString())
+                    name = stringResource(R.string.DeviceSearchUi_BluetoothClass),
+                    value = device.bluetoothClass?.toString() ?: stringResource(R.string.DeviceSearchUi_Row_ValueDefault))
+                PropertyRow(name = stringResource(R.string.DeviceSearchUi_Type), value = device.type.toString())
+                PropertyRow(name = stringResource(R.string.DeviceSearchUi_BondState), value = device.bondState.toString())
             }
         }
     }

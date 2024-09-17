@@ -1,4 +1,4 @@
-package ru.progpuppers.simmsearch.presentation.deviceSelect
+package ru.progpuppers.simmsearch.presentation.deviceMain
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import ru.progpuppers.simmsearch.domain.controller.BluetoothController
-import ru.progpuppers.simmsearch.domain.model.BthDevice
 import ru.progpuppers.simmsearch.domain.model.Device
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
 import java.io.Serializable
