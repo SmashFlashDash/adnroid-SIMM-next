@@ -13,5 +13,7 @@ interface DeviceRepository {
 
     suspend fun update(device: Device)
 
+    suspend fun delete(device: Device)
+
     // fun searchDevices(searchQuery: String, sources: List<String>): Flow<PagingData<SimmDevice>>
 }

@@ -102,7 +102,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Routes.DeviceSaveUi.route) {
-                            navController.previousBackStackEntry?.savedStateHandle?.get<BthDevice?>("device")?.let { device ->
+                            navController.previousBackStackEntry?.savedStateHandle?.get<BthDevice?>("BthDevice")?.let { device ->
                                 DeviceSaveUi(
                                     viewModel = hiltViewModel<DeviceSaveViewModel, DeviceSaveViewModel.DeviceSaveViewModelFactory> { it.create(device = device) },
                                     onBackClick = { navController.popBackStack() },
@@ -113,7 +113,7 @@ class MainActivity : ComponentActivity() {
                         // TODO: фэйлится на засейвленном mock так перезаписываем id, надо перейти на room
                         // https://developer.android.com/develop/ui/compose/navigation
                         composable(Routes.DeviceEditUi.route) {
-                            navController.previousBackStackEntry?.savedStateHandle?.get<Device?>("device")?.let { device ->
+                            navController.previousBackStackEntry?.savedStateHandle?.get<Device?>("Device")?.let { device ->
                                 DeviceEditUi(
                                     viewModel = hiltViewModel<DeviceEditViewModel, DeviceEditViewModel.DeviceEditViewModelFactory> { it.create(device = device) },
                                     onBackClick = { navController.popBackStack() },
@@ -122,7 +122,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                         composable(Routes.DeviceControlUi.route) {
-                            navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("device")?.let {
+                            navController.previousBackStackEntry?.savedStateHandle?.get<DeviceCardItem?>("DeviceCardItem")?.let {
                                 DeviceControlUi(
                                     device = it,
                                     onBackClick = { navController.popBackStack() }
@@ -199,12 +199,12 @@ class MainActivity : ComponentActivity() {
 }
 
 private fun navigateToDeviceEdit(navController: NavController, device: Device) {
-    navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
+    navController.currentBackStackEntry?.savedStateHandle?.set("Device", device)
     navController.navigate(route = Routes.DeviceEditUi.route)
 }
 
 private fun navigateToDeviceControl(navController: NavController, device: DeviceCardItem) {
-    navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
+    navController.currentBackStackEntry?.savedStateHandle?.set("DeviceCardItem", device)
     navController.navigate(route = Routes.DeviceControlUi.route)
 }
 
@@ -213,7 +213,7 @@ private fun navigateToDeviceAdd(navController: NavController) {
 }
 
 private fun navigateToSaveDevice(navController: NavController, device: BthDevice) {
-    navController.currentBackStackEntry?.savedStateHandle?.set("device", device)
+    navController.currentBackStackEntry?.savedStateHandle?.set("BthDevice", device)
     navController.navigate(route = Routes.DeviceSaveUi.route)
 }
 

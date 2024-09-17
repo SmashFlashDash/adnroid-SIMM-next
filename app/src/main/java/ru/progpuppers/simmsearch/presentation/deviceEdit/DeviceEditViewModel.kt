@@ -13,7 +13,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.progpuppers.simmsearch.domain.model.Device
 import ru.progpuppers.simmsearch.domain.repository.DeviceRepository
-import javax.inject.Inject
 
 
 @HiltViewModel(assistedFactory = DeviceEditViewModel.DeviceEditViewModelFactory::class)
@@ -41,6 +40,8 @@ class DeviceEditViewModel @AssistedInject constructor(
     //     }
     // }
 
-    fun update() = viewModelScope.launch { deviceRepository.update(device) }
+    fun updateDevice() = viewModelScope.launch { deviceRepository.update(device) }
+
+    fun deleteDevice() = viewModelScope.launch { deviceRepository.delete(device) }
 
 }

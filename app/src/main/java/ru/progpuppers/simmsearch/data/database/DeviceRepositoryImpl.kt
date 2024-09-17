@@ -1,13 +1,7 @@
 package ru.progpuppers.simmsearch.data.database
 
-import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import ru.progpuppers.simmsearch.domain.model.Device
 import ru.progpuppers.simmsearch.domain.model.toDevice
 import ru.progpuppers.simmsearch.domain.model.toDeviceEntity
@@ -19,8 +13,6 @@ class DeviceRepositoryImpl(
 
     // override val savedDevicesEntity: StateFlow<List<SavedDeviceEntity>>
     //     get() = TODO("Not yet implemented")
-    //
-    //
     // override fun getAllDevices(): Flow<PagingData<SavedDeviceEntity>> {
     //     TODO("Not yet implemented")
     // }
@@ -37,6 +29,10 @@ class DeviceRepositoryImpl(
 
     override suspend fun update(device: Device) {
         dao.save(device.toDeviceEntity())
+    }
+
+    override suspend fun delete(device: Device) {
+        dao.delete(device.toDeviceEntity())
     }
 
 
