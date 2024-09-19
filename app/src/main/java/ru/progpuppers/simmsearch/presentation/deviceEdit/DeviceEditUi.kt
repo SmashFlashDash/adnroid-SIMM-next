@@ -73,23 +73,23 @@ fun DeviceEditUi(
                 onExtendClick = onExtendClick
             )
         },
-        bottomBar = {
-            BottomBar(
+        // bottomBar = {}
+    ) { paddingValues ->
+        Column(modifier = Modifier.padding(paddingValues).fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                // todo: Rows spaceBetwwen [Black Text  ---  Gray editable ButtonIcon]
+                EditableRow("Имя устройства", viewModel.state.name)
+                NotEditableRow("Bluetooth адрес", viewModel.state.address)
+                EditableRow("Описание", viewModel.state.description, "Нет описания")
+            }
+            DialogRow(
+                modifier = Modifier.fillMaxWidth(),
+                // modifier = Modifier.fillMaxWidth().padding(paddingValues),
                 showDialog = showDialog,
                 onUpdate = { viewModel.updateDevice() }
             )
-        }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .verticalScroll(rememberScrollState())
-        ) {
-            // карточки spaceBetwwen [Black Text  ---  Gray editable ButtonIcon]
-            EditableRow("Имя устройства", viewModel.state.name)
-            NotEditableRow("Bluetooth адрес", viewModel.state.address)
-            EditableRow("Описание", viewModel.state.description, "Нет описания")
         }
     }
 }
@@ -148,9 +148,9 @@ fun NotEditableRow(
 }
 
 @Composable
-fun BottomBar(showDialog: MutableState<Boolean>, onUpdate: () -> Unit) {
+fun DialogRow(modifier: Modifier = Modifier, showDialog: MutableState<Boolean>, onUpdate: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 24.dp),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         FilledTonalButton(
@@ -160,20 +160,14 @@ fun BottomBar(showDialog: MutableState<Boolean>, onUpdate: () -> Unit) {
             modifier = Modifier.fillMaxWidth().weight(1f),
             onClick = { showDialog.value = true }
         ) {
-            Text(
-                text = "Отвязать",
-                style = MaterialTheme.typography.bodyLarge
-            )
+            Text(text = "Отвязать", style = MaterialTheme.typography.bodyLarge)
         }
         FilledTonalButton(
             // todo: ждать пока выполниться, показывать крутилку
             //  обновить activity, перегрузив state из БД
             modifier = Modifier.fillMaxWidth().weight(1f),
             onClick = { onUpdate() }) {
-            Text(
-                text = "Сохранить",
-                style = MaterialTheme.typography.bodyLarge
-            )
+            Text(text = "Сохранить", style = MaterialTheme.typography.bodyLarge)
         }
     }
 }
@@ -196,7 +190,8 @@ fun EditableRowPreview() {
 @Composable
 fun BottomPreview() {
     SimmnextTheme(dynamicColor = false) {
-        BottomBar(
+        DialogRow(
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
             showDialog = remember { mutableStateOf(false) },
             onUpdate = { }
         )
