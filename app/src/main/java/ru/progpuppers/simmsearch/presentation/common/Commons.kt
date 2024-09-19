@@ -103,5 +103,5 @@ enum class NotAvailablePopUpState {
 
 fun NotAvailablePopUpState.isVisible(): Boolean = this == NotAvailablePopUpState.VISIBLE
 
-fun Modifier.padding(start: Dp, other: Dp) = this then Modifier.padding(start, other, other, other)
+// fun Modifier.padding(start: Dp, other: Dp) = this then Modifier.padding(start, other, other, other)
 

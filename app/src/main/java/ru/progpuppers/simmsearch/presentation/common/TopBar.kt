@@ -50,10 +50,8 @@ fun TopBar(
                 ) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                        style = MaterialTheme.typography.titleLarge
+                            .copy(fontWeight = FontWeight.SemiBold)
                     )
                 }
             }
@@ -66,6 +64,7 @@ fun TopBar(
 @Composable
 fun TopBarPreview() {
     TopBar(
+        title = "Sup",
         onExtendClick = { },
         onBackClick = { }
     )

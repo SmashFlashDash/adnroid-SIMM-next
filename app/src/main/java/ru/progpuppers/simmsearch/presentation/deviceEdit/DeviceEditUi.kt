@@ -9,19 +9,15 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Report
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,11 +27,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ru.progpuppers.simmsearch.presentation.common.ConfirmDialog
 import ru.progpuppers.simmsearch.presentation.common.TextIconButton
 import ru.progpuppers.simmsearch.presentation.common.TopBar
 import ru.progpuppers.simmsearch.ui.theme.SimmnextTheme
@@ -52,11 +48,12 @@ fun DeviceEditUi(
     //  - Всплывающее окно с TextField при нажатии на копку редактировать
 
     val showDialog = remember { mutableStateOf(false) }
+    // val sheetState = rememberModalBottomSheetState()
+    // val sheetState = rememberStandardBottomSheetState()
 
     if (showDialog.value) {
         ConfirmDialog(
             isShown = showDialog,
-            // title = "ЙО",
             icon = Icons.Filled.Report,
             text = "А ВЫ УВЕРЕНЫ ЧТО ХОТИТЕ ОТВЯЗАТЬ УСТРОЙСТВО",
             dismissButtonText = "ОТМЕНА",
@@ -156,70 +153,29 @@ fun BottomBar(showDialog: MutableState<Boolean>, onUpdate: () -> Unit) {
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 24.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        OutlinedButton(
+        FilledTonalButton(
             // todo: показать диалог
             //  ждать пока выполнить показывать крутилку
             //  выйьи в seceltUI
             modifier = Modifier.fillMaxWidth().weight(1f),
             onClick = { showDialog.value = true }
         ) {
-            Text(text = "Отвязать")
+            Text(
+                text = "Отвязать",
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
-        OutlinedButton(
+        FilledTonalButton(
             // todo: ждать пока выполниться, показывать крутилку
             //  обновить activity, перегрузив state из БД
             modifier = Modifier.fillMaxWidth().weight(1f),
             onClick = { onUpdate() }) {
-            Text(text = "Сохранить")
+            Text(
+                text = "Сохранить",
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
     }
-}
-
-@Composable
-fun ConfirmDialog(
-    isShown: MutableState<Boolean>,
-    title: String? = null,
-    icon: ImageVector? = null,
-    text: String,
-    confirmButtonText: String,
-    dismissButtonText: String,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit = { }
-) {
-    AlertDialog(
-        onDismissRequest = { isShown.value = false },
-        title = title?.let{ { Text(text = title) } },
-        icon = icon?.let { { Icon(
-            icon,
-            contentDescription = "Example Icon",
-            modifier = Modifier.size(32.dp)
-        ) } },
-        text = { Text(text = text) },
-        dismissButton = {
-            Button(
-                onClick = {
-                    isShown.value = false
-                    onDismiss()
-                }) {
-                Text(
-                    text = dismissButtonText,
-                    color = Color.White
-                )
-            }
-        },
-        confirmButton = {
-            Button(
-                onClick = {
-                    isShown.value = false
-                    onConfirm()
-            }) {
-                Text(
-                    text = confirmButtonText,
-                    color = Color.White
-                )
-            }
-        }
-    )
 }
 
 @Preview(showBackground = true)

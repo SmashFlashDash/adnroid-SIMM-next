@@ -17,6 +17,7 @@ fun DeviceControlUi(
     Scaffold(
         topBar = {
             TopBar(
+                title = "Управление",
                 onBackClick = onBackClick,
                 onExtendClick = onExtendClick
             )
